@@ -1,0 +1,349 @@
+.import simd
+.import Accelerate
+.import Foundation
+
+let simdt = ["SIMD2<Float>", "SIMD3<Float>", "SIMD4<Float>", "SIMD8<Float>", "SIMD16<Float>", "SIMD2<Double>", "SIMD3<Double>", "SIMD4<Double>", "SIMD8<Double>"]
+let simdw = [2, 3, 4, 8, 16, 2, 3, 4, 8]
+let ult = ["Float", "Float", "Float", "Float", "Float", "Double", "Double", "Double", "Double"]
+let st = (n) => `SIMD${simdw[n]}<${ult[n]}>`
+let intv = {
+    "Float": "Int32",
+    "Double": "Int"
+}
+let qt = ["x", "y", "z", "w"]
+let lh = [ 'lowHalf.', 'highHalf.' ]
+let simdvals = [
+    ["x", "y"],
+    ["x", "y", "z"],
+    qt,
+    lh.flatMap((v) => qt.map((g) => `${v}${g}`)),
+    lh.flatMap((l) => lh.flatMap((h) => qt.map((g) => `${l}${h}${g}`))),
+    ["x", "y"],
+    ["x", "y", "z"],
+    qt,
+    lh.flatMap((v) => qt.map((g) => `${v}${g}`)),
+]
+
+for (let i = 0; i < simdt.length; ++i) {
+.extension @{st(i)} {
+.    /// Returns the distance between `self` and `to`
+.    public func distance(to: @{simdt[i]}) -> @{ult[i]} {
+.        simd_distance(self, to)
+.    }
+.    /// Quickly returns the distance between `self` and `to`
+.    public func distanceFast(to: @{simdt[i]}) -> @{ult[i]} {
+.        simd_fast_distance(self, to)
+.    }
+.    /// Returns the precise distance between `self` and `to`
+.    public func distancePrecise(to: @{simdt[i]}) -> @{ult[i]} {
+.        simd_precise_distance(self, to)
+.    }
+.    /// The length of `self`
+.    public var length: @{ult[i]} { simd_length(self) }
+.    /// The vector where all fields are the absolute value
+.    public var abs: Self { simd_abs(self) }
+.    /// Clamps `self` to the fields of `min` and `max`
+.    public func clamp(min: @{simdt[i]}, max: @{simdt[i]}) -> @{simdt[i]} {
+.        simd_clamp(self, min, max)
+.    }
+.    /// Clamps `self` to the values of `min` and `max`
+.    public func clamp(min: @{ult[i]}, max: @{ult[i]}) -> @{simdt[i]} {
+.        simd_clamp(self, Self(repeating: min), Self(repeating: max))
+.    }
+.    /// The fractional part of each element
+.    public var fract: Self { simd_fract(self) }
+.    /// The sign of each element
+.    public var sign: Self { simd_sign(self) }
+.    /// The sum of all elements in the vector
+.    public var reduceAdd: @{ult[i]} { simd_reduce_add(self) }
+.    /// The max of all elements in the vector
+.    public var max: @{ult[i]} { simd_reduce_max(self) }
+.    /// The min of all elements in the vector
+.    public var min: @{ult[i]} { simd_reduce_max(self) }
+.    /// Returns linear interpolation of `self` with `with` by `alpha` percent
+.    public func lerp(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
+.        simd_mix(self, with, alpha)
+.    }
+.    /// Returns linear interpolation of `self` with `with` by `alpha` percent
+.    public func lerp(with: @{simdt[i]}, by alpha: @{ult[i]}) -> Self {
+.        simd_mix(self, with, Self(repeating: alpha))
+.    }
+.    /// Returns smooth interpolation of `self` with `with` by `alpha` percent
+.    public func smoothstep(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
+.        simd_smoothstep(self, with, alpha)
+.    }
+.    /// Default reciprocal of each element
+.    public var recip: Self { simd_recip(self) }
+.    /// Fast reciprocal of each element
+.    public var recipFast: Self { simd_fast_recip(self) }
+.    /// Precise reciprocal of each element
+.    public var recipPrecise: Self { simd_precise_recip(self) }
+.    /// Default reciprocal square root of each element
+.    public var rsqrt: Self { simd_rsqrt(self) }
+.    /// Fast reciprocal square root of each element
+.    public var rsqrtFast: Self { simd_fast_rsqrt(self) }
+.    /// Precise reciprocal square root of each element
+.    public var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+.    /// `e` raised to the power of each element in vector
+.    @{"@"}available(iOS 15, *)
+.    public var exp: Self { simd.exp(self) }
+.    /// `2` raised to the power of each element in vector
+.    @{"@"}available(iOS 15, *)
+.    public var exp2: Self { simd.exp2(self) }
+.    /// `10` raised to the power of each element in vector
+.    @{"@"}available(iOS 15, *)
+.    public var exp10: Self { simd.exp10(self) }
+.    /// `e-1` for each element in vector
+.    @{"@"}available(iOS 15, *)
+.    public var expm1: Self { simd.expm1(self) }
+.    /// Natural logarithm of each element
+.    @{"@"}available(iOS 15, *)
+.    public var log: Self { simd.log(self) }
+.    /// Base 2 Natural logarithm of each element
+.    @{"@"}available(iOS 15, *)
+.    public var log2: Self { simd.log2(self) }
+.    /// Base 10 Natural logarithm of each element
+.    @{"@"}available(iOS 15, *)
+.    public var log10: Self { simd.log10(self) }
+.    /// `log(1+x)` of each element
+.    @{"@"}available(iOS 15, *)
+.    public var log1p: Self { simd.log1p(self) }
+if (i == 0 || i == 1 || i == 5 || i == 6) {
+.    /// Cross product of two vectors
+.    public func cross(with: Self) -> @{simdt[i === 0 || i === 5 ? i + 1 : i]} { simd_cross(self, with) }
+}
+.    /// Dot product of two vectors
+.    public func dot(with: Self) -> @{ult[i]} { simd_dot(self, with) }
+.    /// Normalized vector
+.    public var normalized: Self { simd_normalize(self) }
+.    /// Quickly normalized vector
+.    public var normalizedFast: Self { simd_fast_normalize(self) }
+.    /// Precisely normalized vector
+.    public var normalizedPrecise: Self { simd_precise_normalize(self) }
+.    /// Project `self` onto `on`
+.    public func project(on to: Self) -> Self { simd_project(self, to) }
+.    /// Project `self` onto `on` quickly
+.    public func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+.    /// Project `self` onto `on` with precision
+.    public func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+.    /// Reflection of `self` as incident vector with a unit normal vector
+if (i != 3 && i != 4 && i != 8) {
+.    public func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+.    /// Refraction of `self` as incident vector with a unit normal vector and refraction
+.    public func refract(on normal: Self, idx of: @{ult[i]}) -> Self { simd_refract(self, normal, of) }
+}
+.    /// Length Squared of vector
+.    public var lengthSquared: @{ult[i]} { simd_length_squared(self) }
+.    /// Inverse hyperbolic cosine of each element
+.    @{"@"}available(iOS 15, *)
+.    public var acosh: Self { simd.acosh(self) }
+.    /// Inverse hyperbolic sine of each element
+.    @{"@"}available(iOS 15, *)
+.    public var asinh: Self { simd.asinh(self) }
+.    /// Inverse hyperbolic tangent of each element
+.    @{"@"}available(iOS 15, *)
+.    public var atanh: Self { simd.atanh(self) }
+.    /// Hyperbolic cosine of each element
+.    @{"@"}available(iOS 15, *)
+.    public var cosh: Self { simd.cosh(self) }
+.    /// Hyperbolic sine of each element
+.    @{"@"}available(iOS 15, *)
+.    public var sinh: Self { simd.sinh(self) }
+.    /// Hyperbolic tangent of each element
+.    @{"@"}available(iOS 15, *)
+.    public var tanh: Self { simd.tanh(self) }
+.    /// Cube root of each element
+.    @{"@"}available(iOS 15, *)
+.    public var cbrt: Self { simd.cbrt(self) }
+if (i != 3 && i != 4 && i != 8) {
+.    /// Ceil of each element
+.    @{"@"}available(iOS 15, *)
+.    public var asCeil: Self { simd.ceil(self) }
+.    /// Floor of each element
+.    @{"@"}available(iOS 15, *)
+.    public var floor: Self { simd.floor(self) }
+}
+.    /// Error function of each element
+.    @{"@"}available(iOS 15, *)
+.    public var erf: Self { simd.erf(self) }
+.    /// Complementary error function of each element
+.    @{"@"}available(iOS 15, *)
+.    public var erfc: Self { simd.erfc(self) }
+.    /// Multiply-add result of corresponding elements in three vectors
+.    @{"@"}available(iOS 15, *)
+.    public func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+.    /// Modulo of `self` / `other`
+.    @{"@"}available(iOS 15, *)
+.    public func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+.    /// Each element rounded to nearest integer
+.    @{"@"}available(iOS 15, *)
+.    public var rounded: Self { simd.round(self) }
+if (i != 3 && i != 4 && i != 8) {
+.    /// Each element rounded toward zero to nearest integer
+.    public var trunc: Self { simd.trunc(self) }
+}
+.    @{"@"}available(iOS 15, *)
+.    public var acos: Self { simd.acos(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var asin: Self { simd.asin(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var atan: Self { simd.atan(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var cos: Self { simd.cos(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var cospi: Self { simd.cospi(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var sin: Self { simd.sin(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var sinpi: Self { simd.sinpi(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var tan: Self { simd.tan(self) }
+.    @{"@"}available(iOS 15, *)
+.    public var tanpi: Self { simd.tanpi(self) }
+.    public var asArray: [@{ult[i]}] {
+.        return [
+for (let e of simdvals[i]) {
+.            @{e},
+}
+.        ]
+.    }
+
+if (i == 2 || i == 7) {
+.    public init(axis: SIMD3<@{ult[i]}>, rad: @{ult[i]}) {
+.        let halfAngle = rad / 2
+.        let s = Foundation.sin( halfAngle )
+.        self.init(axis.x * s, axis.y * s, axis.z * s, Foundation.cos( halfAngle ))
+.    }
+.    public init(euler: SIMD3<@{ult[i]}>, order: EulerOrder) {
+    let cs = ["cos1", "cos2", "cos3", "sin1", "sin2", "sin3"]; let ax = ['x', 'y', 'z', 'x', 'y', 'z']
+    for (let j = 0; j < 6; ++j) {
+.        let @{cs[j][0] + cs[j][3]} = Foundation.@{cs[j].substr(0,3)}( euler.@{ax[j]} / 2 )
+    }
+.        switch order {
+.        case .XYZ: self.init(
+.            s1 * c2 * c3 + c1 * s2 * s3,
+.            c1 * s2 * c3 - s1 * c2 * s3,
+.            c1 * c2 * s3 + s1 * s2 * c3,
+.            c1 * c2 * c3 - s1 * s2 * s3
+.            )
+.        case .YXZ: self.init(
+.            s1 * c2 * c3 + c1 * s2 * s3,
+.            c1 * s2 * c3 - s1 * c2 * s3,
+.            c1 * c2 * s3 - s1 * s2 * c3,
+.            c1 * c2 * c3 + s1 * s2 * s3
+.            )
+.        case .ZXY: self.init(
+.            s1 * c2 * c3 - c1 * s2 * s3,
+.            c1 * s2 * c3 + s1 * c2 * s3,
+.            c1 * c2 * s3 + s1 * s2 * c3,
+.            c1 * c2 * c3 - s1 * s2 * s3
+.            )
+.        case .ZYX: self.init(
+.            s1 * c2 * c3 - c1 * s2 * s3,
+.            c1 * s2 * c3 + s1 * c2 * s3,
+.            c1 * c2 * s3 - s1 * s2 * c3,
+.            c1 * c2 * c3 + s1 * s2 * s3
+.            )
+.        case .YZX: self.init(
+.            s1 * c2 * c3 + c1 * s2 * s3,
+.            c1 * s2 * c3 + s1 * c2 * s3,
+.            c1 * c2 * s3 - s1 * s2 * c3,
+.            c1 * c2 * c3 - s1 * s2 * s3
+.            )
+.        case .XZY: self.init(
+.            s1 * c2 * c3 - c1 * s2 * s3,
+.            c1 * s2 * c3 - s1 * c2 * s3,
+.            c1 * c2 * s3 + s1 * s2 * c3,
+.            c1 * c2 * c3 + s1 * s2 * s3
+.            )
+.        }
+.    }
+    let m =  ["0.x", "0.y", "0.z", "1.x", "1.y", "1.z", "2.x", "2.y", "2.z"]
+    let ms = ["m11", "m12", "m13", "m21", "m22", "m23", "m31", "m32", "m33"]
+.    public init(matrix: simd_@{ult[i].toLowerCase()}3x3) {
+    for (let j = 0; j < m.length; j++) {
+.        let @{ms[j]} = matrix.columns.@{m[j]}
+    }
+.        let trace = m11 + m22 + m33
+.        if trace > 0 {
+.            let s = @{ult[i]}(0.5) / Foundation.sqrt(trace + @{ult[i]}(1.0))
+.            self.init( (m32 - m23) * s, (m13 - m31) * s, (m21 - m12) * s, @{ult[i]}(0.25) / s )
+.        } else if m11 > m22 && m11 > m33 {
+.            let s = @{ult[i]}(2.0) * Foundation.sqrt( @{ult[i]}(1.0) + m11 - m22 - m33)
+.            self.init( @{ult[i]}(0.25) * s, (m12 + m21) / s, (m13 + m31) / s, (m32 - m23) / s )
+.        } else if m22 > m33 {
+.            let s = @{ult[i]}(2.0) * Foundation.sqrt( @{ult[i]}(1.0) + m22 - m11 - m33)
+.            self.init( (m12 + m21) / s, @{ult[i]}(0.25) * s, (m32 + m23) / s, (m13 - m31) / s )
+.        } else {
+.            let s = @{ult[i]}(2.0) * Foundation.sqrt( @{ult[i]}(1.0) + m33 - m11 - m22)
+.            self.init( (m13 + m31) / s, (m32 + m23) / s, @{ult[i]}(0.25) * s, (m12 - m21) / s )
+.        }
+.    }
+.    public init(from: SIMD3<@{ult[i]}>, to: SIMD3<@{ult[i]}>) {
+.        var r = from.dot(with: to) + 1
+.        if r < @{ult[i]}.ulpOfOne {
+.            r = 0
+.            if (Swift.abs(from.x) > Swift.abs(from.z)) {
+.                self.init(-from.y, from.x, 0, r)
+.            } else {
+.                self.init(0, -from.z, from.y, r)
+.            }
+.        } else {
+.            self.init(from.y * to.z - from.z * to.y, from.z * to.x - from.x * to.z, from.x * to.y - from.y * to.x, r)
+.        }
+.        self = normalized
+.    }
+.    public func angle(to: Self) -> @{ult[i]} {
+.        2 * Foundation.acos(Swift.abs((self.dot(with: to)).clamp(-1, 1)))
+.    }
+.    public func rotate(towards: Self, step: @{ult[i]}) -> Self {
+.        let ang = angle(to: towards)
+.        if (ang == 0) {return self}
+.        let t = Swift.min(1, step / ang)
+.        return slerp( quat: towards, t: t )
+.    }
+.    public func slerp(quat: Self, t: @{ult[i]}) -> Self {
+.        if t == 0 {return self}
+.        if t == 1 {return quat}
+.        var cosHalfTheta = w * quat.w + x * quat.x + y * quat.y + z * quat.z
+.        var rv = quat
+.        if cosHalfTheta < 0 {
+.            cosHalfTheta = -cosHalfTheta
+.            rv = quat * -@{ult[i]}(1.0)
+.        }
+.        if cosHalfTheta >= 1.0 {
+.           return self
+.        }
+.        let sqrSinHalfTheta = @{ult[i]}(1.0) - cosHalfTheta * cosHalfTheta
+.        if sqrSinHalfTheta <= @{ult[i]}.ulpOfOne {
+.            let s = 1 - t
+.            rv.w = s * w + t * rv.w
+.            rv.x = s * x + t * rv.x
+.            rv.y = s * y + t * rv.y
+.            rv.z = s * z + t * rv.z
+.            rv = rv.normalized
+.            return rv
+.        }
+.        let sinHalfTheta = Foundation.sqrt( sqrSinHalfTheta )
+.        let halfTheta = Foundation.atan2( sinHalfTheta, cosHalfTheta )
+.        let ratioA = Foundation.sin( (1 - t) * halfTheta ) / sinHalfTheta
+.        let ratioB = Foundation.sin( t * halfTheta ) / sinHalfTheta
+.        return (self * ratioA + rv * ratioB)
+.    }
+.    public var invert: Self { Self(-x, -y, -z, w) }
+.    public func multiply(by: Self) -> Self {
+.        let v1 = Self(repeating: by.w)
+.        let v2 = Self(self.w, self.w, self.w, -self.x)
+.        let v3 = Self(by.x, by.y, by.z, by.x)
+.        let v4 = Self(self.y, self.z, self.x, -self.y)
+.        let v5 = Self(by.z, by.x, by.y, by.y)
+.        let v6 = -Self(self.z, self.x, self.y, self.z)
+.        let v7 = Self(by.y, by.z, by.x, by.z)
+.        return self * v1 + v2 * v3 + v4 * v5 + v6 * v7
+.    }
+.    public func preMultiply(by: Self) -> Self {
+.        return by.multiply(by: self)
+.    }
+}
+.}
+}
