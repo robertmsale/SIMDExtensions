@@ -1,6 +1,12 @@
 .import simd
 .import Accelerate
 .import Foundation
+.#if canImport(SwiftUI)
+.import SwiftUI
+.#endif
+.#if canImport(SceneKit)
+.import SceneKit
+.#endif
 
 let simdt = ["SIMD2<Float>", "SIMD3<Float>", "SIMD4<Float>", "SIMD8<Float>", "SIMD16<Float>", "SIMD2<Double>", "SIMD3<Double>", "SIMD4<Double>", "SIMD8<Double>"]
 let simdw = [2, 3, 4, 8, 16, 2, 3, 4, 8]
@@ -25,196 +31,210 @@ let simdvals = [
 ]
 
 for (let i = 0; i < simdt.length; ++i) {
-.extension @{st(i)} {
+.public extension @{st(i)} {
 .    /// Returns the distance between `self` and `to`
-.    public func distance(to: @{simdt[i]}) -> @{ult[i]} {
+.    func distance(to: @{simdt[i]}) -> @{ult[i]} {
 .        simd_distance(self, to)
 .    }
 .    /// Quickly returns the distance between `self` and `to`
-.    public func distanceFast(to: @{simdt[i]}) -> @{ult[i]} {
+.    func distanceFast(to: @{simdt[i]}) -> @{ult[i]} {
 .        simd_fast_distance(self, to)
 .    }
 .    /// Returns the precise distance between `self` and `to`
-.    public func distancePrecise(to: @{simdt[i]}) -> @{ult[i]} {
+.    func distancePrecise(to: @{simdt[i]}) -> @{ult[i]} {
 .        simd_precise_distance(self, to)
 .    }
 .    /// The length of `self`
-.    public var length: @{ult[i]} { simd_length(self) }
+.    var length: @{ult[i]} { simd_length(self) }
+.    /// the length squared of `self`
+.    var lengthSquared: @{ult[i]} { simd_length_squared(self) }
 .    /// The vector where all fields are the absolute value
-.    public var abs: Self { simd_abs(self) }
+.    var abs: Self { simd_abs(self) }
 .    /// Clamps `self` to the fields of `min` and `max`
-.    public func clamp(min: @{simdt[i]}, max: @{simdt[i]}) -> @{simdt[i]} {
+.    func clamp(min: @{simdt[i]}, max: @{simdt[i]}) -> @{simdt[i]} {
 .        simd_clamp(self, min, max)
 .    }
 .    /// Clamps `self` to the values of `min` and `max`
-.    public func clamp(min: @{ult[i]}, max: @{ult[i]}) -> @{simdt[i]} {
+.    func clamp(min: @{ult[i]}, max: @{ult[i]}) -> @{simdt[i]} {
 .        simd_clamp(self, Self(repeating: min), Self(repeating: max))
 .    }
 .    /// The fractional part of each element
-.    public var fract: Self { simd_fract(self) }
+.    var fract: Self { simd_fract(self) }
 .    /// The sign of each element
-.    public var sign: Self { simd_sign(self) }
+.    var sign: Self { simd_sign(self) }
 .    /// The sum of all elements in the vector
-.    public var reduceAdd: @{ult[i]} { simd_reduce_add(self) }
+.    var reduceAdd: @{ult[i]} { simd_reduce_add(self) }
 .    /// The max of all elements in the vector
-.    public var max: @{ult[i]} { simd_reduce_max(self) }
+.    var max: @{ult[i]} { simd_reduce_max(self) }
 .    /// The min of all elements in the vector
-.    public var min: @{ult[i]} { simd_reduce_max(self) }
+.    var min: @{ult[i]} { simd_reduce_max(self) }
 .    /// Returns linear interpolation of `self` with `with` by `alpha` percent
-.    public func lerp(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
+.    func lerp(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
 .        simd_mix(self, with, alpha)
 .    }
 .    /// Returns linear interpolation of `self` with `with` by `alpha` percent
-.    public func lerp(with: @{simdt[i]}, by alpha: @{ult[i]}) -> Self {
+.    func lerp(with: @{simdt[i]}, by alpha: @{ult[i]}) -> Self {
 .        simd_mix(self, with, Self(repeating: alpha))
 .    }
 .    /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-.    public func smoothstep(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
+.    func smoothstep(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
 .        simd_smoothstep(self, with, alpha)
 .    }
 .    /// Default reciprocal of each element
-.    public var recip: Self { simd_recip(self) }
+.    var recip: Self { simd_recip(self) }
 .    /// Fast reciprocal of each element
-.    public var recipFast: Self { simd_fast_recip(self) }
+.    var recipFast: Self { simd_fast_recip(self) }
 .    /// Precise reciprocal of each element
-.    public var recipPrecise: Self { simd_precise_recip(self) }
+.    var recipPrecise: Self { simd_precise_recip(self) }
 .    /// Default reciprocal square root of each element
-.    public var rsqrt: Self { simd_rsqrt(self) }
+.    var rsqrt: Self { simd_rsqrt(self) }
 .    /// Fast reciprocal square root of each element
-.    public var rsqrtFast: Self { simd_fast_rsqrt(self) }
+.    var rsqrtFast: Self { simd_fast_rsqrt(self) }
 .    /// Precise reciprocal square root of each element
-.    public var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+.    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
 .    /// `e` raised to the power of each element in vector
 .    @{"@"}available(iOS 15, *)
-.    public var exp: Self { simd.exp(self) }
+.    var exp: Self { simd.exp(self) }
 .    /// `2` raised to the power of each element in vector
 .    @{"@"}available(iOS 15, *)
-.    public var exp2: Self { simd.exp2(self) }
+.    var exp2: Self { simd.exp2(self) }
 .    /// `10` raised to the power of each element in vector
 .    @{"@"}available(iOS 15, *)
-.    public var exp10: Self { simd.exp10(self) }
+.    var exp10: Self { simd.exp10(self) }
 .    /// `e-1` for each element in vector
 .    @{"@"}available(iOS 15, *)
-.    public var expm1: Self { simd.expm1(self) }
+.    var expm1: Self { simd.expm1(self) }
 .    /// Natural logarithm of each element
 .    @{"@"}available(iOS 15, *)
-.    public var log: Self { simd.log(self) }
+.    var log: Self { simd.log(self) }
 .    /// Base 2 Natural logarithm of each element
 .    @{"@"}available(iOS 15, *)
-.    public var log2: Self { simd.log2(self) }
+.    var log2: Self { simd.log2(self) }
 .    /// Base 10 Natural logarithm of each element
 .    @{"@"}available(iOS 15, *)
-.    public var log10: Self { simd.log10(self) }
+.    var log10: Self { simd.log10(self) }
 .    /// `log(1+x)` of each element
 .    @{"@"}available(iOS 15, *)
-.    public var log1p: Self { simd.log1p(self) }
+.    var log1p: Self { simd.log1p(self) }
 if (i == 0 || i == 1 || i == 5 || i == 6) {
 .    /// Cross product of two vectors
-.    public func cross(with: Self) -> @{simdt[i === 0 || i === 5 ? i + 1 : i]} { simd_cross(self, with) }
+.    func cross(with: Self) -> @{simdt[i === 0 || i === 5 ? i + 1 : i]} { simd_cross(self, with) }
 }
 .    /// Dot product of two vectors
-.    public func dot(with: Self) -> @{ult[i]} { simd_dot(self, with) }
+.    func dot(with: Self) -> @{ult[i]} { simd_dot(self, with) }
 .    /// Normalized vector
-.    public var normalized: Self { simd_normalize(self) }
+.    var normalized: Self { simd_normalize(self) }
 .    /// Quickly normalized vector
-.    public var normalizedFast: Self { simd_fast_normalize(self) }
+.    var normalizedFast: Self { simd_fast_normalize(self) }
 .    /// Precisely normalized vector
-.    public var normalizedPrecise: Self { simd_precise_normalize(self) }
+.    var normalizedPrecise: Self { simd_precise_normalize(self) }
 .    /// Project `self` onto `on`
-.    public func project(on to: Self) -> Self { simd_project(self, to) }
+.    func project(on to: Self) -> Self { simd_project(self, to) }
 .    /// Project `self` onto `on` quickly
-.    public func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+.    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
 .    /// Project `self` onto `on` with precision
-.    public func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+.    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
 .    /// Reflection of `self` as incident vector with a unit normal vector
 if (i != 3 && i != 4 && i != 8) {
-.    public func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+.    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
 .    /// Refraction of `self` as incident vector with a unit normal vector and refraction
-.    public func refract(on normal: Self, idx of: @{ult[i]}) -> Self { simd_refract(self, normal, of) }
+.    func refract(on normal: Self, idx of: @{ult[i]}) -> Self { simd_refract(self, normal, of) }
 }
-.    /// Length Squared of vector
-.    public var lengthSquared: @{ult[i]} { simd_length_squared(self) }
 .    /// Inverse hyperbolic cosine of each element
 .    @{"@"}available(iOS 15, *)
-.    public var acosh: Self { simd.acosh(self) }
+.    var acosh: Self { simd.acosh(self) }
 .    /// Inverse hyperbolic sine of each element
 .    @{"@"}available(iOS 15, *)
-.    public var asinh: Self { simd.asinh(self) }
+.    var asinh: Self { simd.asinh(self) }
 .    /// Inverse hyperbolic tangent of each element
 .    @{"@"}available(iOS 15, *)
-.    public var atanh: Self { simd.atanh(self) }
+.    var atanh: Self { simd.atanh(self) }
 .    /// Hyperbolic cosine of each element
 .    @{"@"}available(iOS 15, *)
-.    public var cosh: Self { simd.cosh(self) }
+.    var cosh: Self { simd.cosh(self) }
 .    /// Hyperbolic sine of each element
 .    @{"@"}available(iOS 15, *)
-.    public var sinh: Self { simd.sinh(self) }
+.    var sinh: Self { simd.sinh(self) }
 .    /// Hyperbolic tangent of each element
 .    @{"@"}available(iOS 15, *)
-.    public var tanh: Self { simd.tanh(self) }
+.    var tanh: Self { simd.tanh(self) }
 .    /// Cube root of each element
 .    @{"@"}available(iOS 15, *)
-.    public var cbrt: Self { simd.cbrt(self) }
+.    var cbrt: Self { simd.cbrt(self) }
 if (i != 3 && i != 4 && i != 8) {
 .    /// Ceil of each element
 .    @{"@"}available(iOS 15, *)
-.    public var asCeil: Self { simd.ceil(self) }
+.    var asCeil: Self { simd.ceil(self) }
 .    /// Floor of each element
 .    @{"@"}available(iOS 15, *)
-.    public var floor: Self { simd.floor(self) }
+.    var floor: Self { simd.floor(self) }
 }
 .    /// Error function of each element
 .    @{"@"}available(iOS 15, *)
-.    public var erf: Self { simd.erf(self) }
+.    var erf: Self { simd.erf(self) }
 .    /// Complementary error function of each element
 .    @{"@"}available(iOS 15, *)
-.    public var erfc: Self { simd.erfc(self) }
+.    var erfc: Self { simd.erfc(self) }
 .    /// Multiply-add result of corresponding elements in three vectors
 .    @{"@"}available(iOS 15, *)
-.    public func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+.    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
 .    /// Modulo of `self` / `other`
 .    @{"@"}available(iOS 15, *)
-.    public func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+.    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
 .    /// Each element rounded to nearest integer
 .    @{"@"}available(iOS 15, *)
-.    public var rounded: Self { simd.round(self) }
+.    var rounded: Self { simd.round(self) }
 if (i != 3 && i != 4 && i != 8) {
 .    /// Each element rounded toward zero to nearest integer
-.    public var trunc: Self { simd.trunc(self) }
+.    var trunc: Self { simd.trunc(self) }
 }
 .    @{"@"}available(iOS 15, *)
-.    public var acos: Self { simd.acos(self) }
+.    var acos: Self { simd.acos(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var asin: Self { simd.asin(self) }
+.    var asin: Self { simd.asin(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var atan: Self { simd.atan(self) }
+.    var atan: Self { simd.atan(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var cos: Self { simd.cos(self) }
+.    var cos: Self { simd.cos(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var cospi: Self { simd.cospi(self) }
+.    var cospi: Self { simd.cospi(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var sin: Self { simd.sin(self) }
+.    var sin: Self { simd.sin(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var sinpi: Self { simd.sinpi(self) }
+.    var sinpi: Self { simd.sinpi(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var tan: Self { simd.tan(self) }
+.    var tan: Self { simd.tan(self) }
 .    @{"@"}available(iOS 15, *)
-.    public var tanpi: Self { simd.tanpi(self) }
-.    public var asArray: [@{ult[i]}] {
-.        return [
+.    var tanpi: Self { simd.tanpi(self) }
+.    /// Setting this computed property is safe from crashes
+.    var asArray: [@{ult[i]}] {
+.        get {[
 for (let e of simdvals[i]) {
 .            @{e},
 }
-.        ]
+.        ]} set(v) {
+.            if v.count == 0 { return }
+.            let sm1 = v.count - 1
+for (let j = 0; j < simdvals[i].length; ++j) {
+.            @{simdvals[i][j]} = v[@{j}]; if sm1 == @{j} { return }
+}
+.        }
 .    }
-
+.    /// Manhattan distance of `self` to `to`
+.    func manhattanDistance(to: Self) -> Self {
+.        (self - to).abs
+.    }
+.    init(array: [@{ult[i]}]) {
+.        self.init()
+.        asArray = array
+.    }
 if (i == 2 || i == 7) {
-.    public init(axis: SIMD3<@{ult[i]}>, rad: @{ult[i]}) {
+.    init(axis: SIMD3<@{ult[i]}>, rad: @{ult[i]}) {
 .        let halfAngle = rad / 2
 .        let s = Foundation.sin( halfAngle )
 .        self.init(axis.x * s, axis.y * s, axis.z * s, Foundation.cos( halfAngle ))
 .    }
-.    public init(euler: SIMD3<@{ult[i]}>, order: EulerOrder) {
+.    init(euler: SIMD3<@{ult[i]}>, order: EulerOrder) {
     let cs = ["cos1", "cos2", "cos3", "sin1", "sin2", "sin3"]; let ax = ['x', 'y', 'z', 'x', 'y', 'z']
     for (let j = 0; j < 6; ++j) {
 .        let @{cs[j][0] + cs[j][3]} = Foundation.@{cs[j].substr(0,3)}( euler.@{ax[j]} / 2 )
@@ -260,7 +280,7 @@ if (i == 2 || i == 7) {
 .    }
     let m =  ["0.x", "0.y", "0.z", "1.x", "1.y", "1.z", "2.x", "2.y", "2.z"]
     let ms = ["m11", "m12", "m13", "m21", "m22", "m23", "m31", "m32", "m33"]
-.    public init(matrix: simd_@{ult[i].toLowerCase()}3x3) {
+.    init(matrix: simd_@{ult[i].toLowerCase()}3x3) {
     for (let j = 0; j < m.length; j++) {
 .        let @{ms[j]} = matrix.columns.@{m[j]}
     }
@@ -279,7 +299,7 @@ if (i == 2 || i == 7) {
 .            self.init( (m13 + m31) / s, (m32 + m23) / s, @{ult[i]}(0.25) * s, (m12 - m21) / s )
 .        }
 .    }
-.    public init(from: SIMD3<@{ult[i]}>, to: SIMD3<@{ult[i]}>) {
+.    init(from: SIMD3<@{ult[i]}>, to: SIMD3<@{ult[i]}>) {
 .        var r = from.dot(with: to) + 1
 .        if r < @{ult[i]}.ulpOfOne {
 .            r = 0
@@ -293,16 +313,16 @@ if (i == 2 || i == 7) {
 .        }
 .        self = normalized
 .    }
-.    public func angle(to: Self) -> @{ult[i]} {
+.    func angle(to: Self) -> @{ult[i]} {
 .        2 * Foundation.acos(Swift.abs((self.dot(with: to)).clamp(-1, 1)))
 .    }
-.    public func rotate(towards: Self, step: @{ult[i]}) -> Self {
+.    func rotate(towards: Self, step: @{ult[i]}) -> Self {
 .        let ang = angle(to: towards)
 .        if (ang == 0) {return self}
 .        let t = Swift.min(1, step / ang)
 .        return slerp( quat: towards, t: t )
 .    }
-.    public func slerp(quat: Self, t: @{ult[i]}) -> Self {
+.    func slerp(quat: Self, t: @{ult[i]}) -> Self {
 .        if t == 0 {return self}
 .        if t == 1 {return quat}
 .        var cosHalfTheta = w * quat.w + x * quat.x + y * quat.y + z * quat.z
@@ -330,8 +350,8 @@ if (i == 2 || i == 7) {
 .        let ratioB = Foundation.sin( t * halfTheta ) / sinHalfTheta
 .        return (self * ratioA + rv * ratioB)
 .    }
-.    public var invert: Self { Self(-x, -y, -z, w) }
-.    public func multiply(by: Self) -> Self {
+.    var invert: Self { Self(-x, -y, -z, w) }
+.    func multiply(by: Self) -> Self {
 .        let v1 = Self(repeating: by.w)
 .        let v2 = Self(self.w, self.w, self.w, -self.x)
 .        let v3 = Self(by.x, by.y, by.z, by.x)
@@ -341,9 +361,193 @@ if (i == 2 || i == 7) {
 .        let v7 = Self(by.y, by.z, by.x, by.z)
 .        return self * v1 + v2 * v3 + v4 * v5 + v6 * v7
 .    }
-.    public func preMultiply(by: Self) -> Self {
+.    func preMultiply(by: Self) -> Self {
 .        return by.multiply(by: self)
 .    }
+.#if canImport(SwiftUI)
+.    @{"@"}available(iOS 13, *)
+.    var asColor: Color {
+.        let norm = normalized
+.        return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z), opacity: Double(norm.w))
+.    }
+.#endif
+.#if canImport(CoreGraphics)
+.    var asUIColor: UIColor {
+.        let norm = normalized
+.        return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
+.    }
+.    @{"@"}available(iOS 13, *)
+.    var asCGColor: CGColor {
+.        let norm = normalized
+.        return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
+.    }
+.#endif
+}
+if (i === 1 || i === 6) {
+.    func project(vec on: Self) -> Self {
+.        let denom = self.lengthSquared
+.        if denom == 0 { return Self() }
+.        let scalar = on.dot(with: self) / denom
+.        return on * scalar
+.    }
+.#if canImport(SwiftUI)
+.    @{"@"}available(iOS 13, *)
+.    var asColor: Color {
+.        let norm = normalized
+.        return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z))
+.    }
+.#endif
+.#if canImport(CoreGraphics)
+.    var asUIColor: UIColor {
+.        let norm = normalized
+.        return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
+.    }
+.    @{"@"}available(iOS 13, *)
+.    var asCGColor: CGColor {
+.        let norm = normalized
+.        return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
+.    }
+.#endif
+.#if canImport(SceneKit)
+.    var asSCNV3: SCNVector3 {
+.        SCNVector3(Float(x), Float(y), Float(z))
+.    }
+.#endif
+}
+if (i === 0 || i === 5) {
+.    func rotate(around center: Self, angle: @{ult[i]}) -> Self {
+.        let c = Foundation.cos(angle)
+.        let s = Foundation.sin(angle)
+.        let xy = self - center
+.        let v1 = Self(xy.x, xy.x)
+.        let v2 = Self(c, s)
+.        let v3 = Self(-xy.y, xy.y)
+.        let v4 = Self(s, c)
+.        return v1 * v2 + v3 * v4 + center
+.    }
+.#if canImport(CoreGraphics)
+.    var asCGPoint: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
+.    var asCGSize: CGSize { CGSize(width: CGFloat(x), height: CGFloat(y)) }
+.#endif
 }
 .}
 }
+for (let i = 0; i < 4; ++i) {
+.public extension @{st(i)} {
+.   var asSIMD@{ult[i+5]}: @{st(i+5)} { @{st(i+5)}(@{simdvals[i].map(v => `${ult[i+5]}(${v})`).join(',')}) }
+.}
+.public extension @{st(i+5)} {
+.   var asSIMD@{ult[i]}: @{st(i)} { @{st(i)}(@{simdvals[i+5].map(v => `${ult[i]}(${v})`).join(',')}) }
+.}
+}
+[1,6].forEach(i => {
+.public extension Spherical where T == @{ult[i]} {
+let v = `simd${ult[i][0]}`
+.    /// Initialize Spherical using 3D Vector in cartesian coordinate space
+.    init(cartesian @{v}: @{st(i)}) {
+.        simd = @{st(i)}()
+.        radius = @{v}.length
+.        if radius == 0 {
+.            theta = 0
+.            phi = 0
+.        } else {
+.            theta = Foundation.atan2(@{v}.x, @{v}.z)
+.            phi = Foundation.acos((@{v}.y / radius).clamp(-1, 1))
+.        }
+.    }
+.    /// Sphirical where phi is restricted to between EPS and PI-EPS
+.    var asSafe: Spherical {
+.        var sph = self
+.        let EPS = @{ult[i]}.ulpOfOne
+.        sph.phi = Swift.max(EPS, Swift.min(@{ult[i]}.pi - EPS, sph.phi))
+.        return sph
+.    }
+.    /// Restrict phi to between EPS and PI-EPS
+.    mutating func makeSafe() {
+.       self = asSafe
+.    }
+.    /// Spherical coordinates represented as cartesian coordinates
+.    var asCartesian: @{st(i)} {
+.        let sinPhiRad = Foundation.sin(phi) * radius
+.        let l = @{st(i)}(sinPhiRad, Foundation.cos(phi), sinPhiRad)
+.        let r = @{st(i)}(Foundation.sin(theta), radius, Foundation.cos(theta))
+.        return l * r
+.    }
+.}
+})
+.#if canImport(SwiftUI)
+.@{"@"}available(iOS 13, *)
+.public extension View {
+.    func frame(_ size: CGSize, alignment: Alignment = .center) -> some View {
+.        return self.frame(width: size.width, height: size.height, alignment: alignment)
+.    }
+.    func frame(min: CGSize? = nil, ideal: CGSize? = nil, max: CGSize? = nil, alignment: Alignment = .center) -> some View {
+.        return self.frame(minWidth: min?.width, idealWidth: ideal?.width, maxWidth: max?.width, minHeight: min?.height, idealHeight: ideal?.height, maxHeight: max?.height, alignment: alignment)
+.    }
+let arr = [0,5]
+for (let i of arr) {
+let v = `simd${simdw[i]}${ult[i][0]}`
+.    func frame(_ @{v}: @{st(i)}, alignment: Alignment = .center) -> some View {
+.        return self.frame(width: CGFloat(@{v}.x), height: CGFloat(@{v}.y), alignment: alignment)
+.    }
+.    func frame(min: @{st(i)}? = nil, ideal: @{st(i)}? = nil, max: @{st(i)}? = nil, alignment: Alignment = .center) -> some View {
+.        let v: [CGFloat?] = Array(arrayLiteral: min?.x, ideal?.x, max?.x, min?.y, ideal?.y, max?.y).map { $0 == nil ? nil : CGFloat($0!) }
+.        return self.frame(minWidth: v[0], idealWidth: v[1], maxWidth: v[2], minHeight: v[3], idealHeight: v[4], maxHeight: v[5], alignment: alignment)
+.    }
+.    func position(_ @{v}: @{st(i)}) -> some View {
+.        return self.position(x: CGFloat(@{v}.x), y: CGFloat(@{v}.y))
+.    }
+.    func offset(_ @{v}: @{st(i)}) -> some View {
+.        return self.offset(x: CGFloat(@{v}.x), y: CGFloat(@{v}.y))
+.    }
+}
+.}
+.@{"@"}available(iOS 13, *)
+.public extension Path {
+for (let i of arr) {
+let v = `simd${simdw[i]}${ult[i][0]}`
+.    static func createLinesFrom(_ @{v}points: [@{st(i)}], isClosed: Bool = true) -> Path {
+.        Path { p in
+.            if @{v}points.count < 2 { return }
+.            let cgp = @{v}points.map { $0.asCGPoint }
+.            p.move(to: cgp[0])
+.            for pt in cgp[1...] {
+.                p.addLine(to: pt)
+.            }
+.            if isClosed { p.addLine(to: cgp[0]) }
+.        }
+.    }
+}
+.}
+.#endif
+.#if canImport(SceneKit)
+.public extension SCNVector3 {
+.    init(_ x: Double, _ y: Double, _ z: Double) {
+.        self.init(Float(x), Float(y), Float(z))
+.    }
+.    var asSIMDF: SIMD3<Float> { .init(x, y, z) }
+.    var asSIMDD: SIMD3<Double> { .init(Double(x), Double(y), Double(z)) }
+.}
+.public extension SCNQuaternion {
+.    init(_ x: Double, _ y: Double, _ z: Double, _ w: Double) {
+.        self.init(Float(x), Float(y), Float(z), Float(w))
+.    }
+.    var asSIMDF: SIMD4<Float> { .init(x, y, z, w) }
+.    var asSIMDD: SIMD4<Double> { .init(Double(x), Double(y), Double(z), Double(w)) }
+.}
+.public extension SCNGeometrySource {
+for (let i of [1,6]) {
+.    convenience init(vertices: [@{st(i)}]) {
+.        self.init(vertices: vertices.map {SCNVector3($0.x, $0.y, $0.z)})
+.    }
+.    convenience init(normals: [@{st(i)}]) {
+.        self.init(normals: normals.map {SCNVector3($0.x, $0.y, $0.z)})
+.    }
+}
+for (let i of [0,5]) {
+.    convenience init(textureCoordinates: [@{st(i)}]) {
+.        self.init(textureCoordinates: textureCoordinates.map {CGPoint(x: CGFloat($0.x), y: CGFloat($0.y))})
+.    }
+}
+.}
+.#endif
