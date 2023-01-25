@@ -43,7 +43,7 @@ public extension SIMD2<Float> {
     /// The max of all elements in the vector
     var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_max(self) }
+    var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD2<Float>, by alpha: SIMD2<Float>) -> Self {
         simd_mix(self, with, alpha)
@@ -245,7 +245,7 @@ public extension SIMD3<Float> {
     /// The max of all elements in the vector
     var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_max(self) }
+    var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD3<Float>, by alpha: SIMD3<Float>) -> Self {
         simd_mix(self, with, alpha)
@@ -464,7 +464,7 @@ public extension SIMD4<Float> {
     /// The max of all elements in the vector
     var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_max(self) }
+    var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD4<Float>, by alpha: SIMD4<Float>) -> Self {
         simd_mix(self, with, alpha)
@@ -813,7 +813,7 @@ public extension SIMD8<Float> {
     /// The max of all elements in the vector
     var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_max(self) }
+    var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD8<Float>, by alpha: SIMD8<Float>) -> Self {
         simd_mix(self, with, alpha)
@@ -1000,7 +1000,7 @@ public extension SIMD16<Float> {
     /// The max of all elements in the vector
     var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_max(self) }
+    var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD16<Float>, by alpha: SIMD16<Float>) -> Self {
         simd_mix(self, with, alpha)
@@ -1203,7 +1203,7 @@ public extension SIMD2<Double> {
     /// The max of all elements in the vector
     var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_max(self) }
+    var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD2<Double>, by alpha: SIMD2<Double>) -> Self {
         simd_mix(self, with, alpha)
@@ -1405,7 +1405,7 @@ public extension SIMD3<Double> {
     /// The max of all elements in the vector
     var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_max(self) }
+    var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD3<Double>, by alpha: SIMD3<Double>) -> Self {
         simd_mix(self, with, alpha)
@@ -1624,7 +1624,7 @@ public extension SIMD4<Double> {
     /// The max of all elements in the vector
     var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_max(self) }
+    var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD4<Double>, by alpha: SIMD4<Double>) -> Self {
         simd_mix(self, with, alpha)
@@ -1973,7 +1973,7 @@ public extension SIMD8<Double> {
     /// The max of all elements in the vector
     var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_max(self) }
+    var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
     func lerp(with: SIMD8<Double>, by alpha: SIMD8<Double>) -> Self {
         simd_mix(self, with, alpha)

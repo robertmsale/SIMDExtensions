@@ -67,7 +67,7 @@ for (let i = 0; i < simdt.length; ++i) {
 .    /// The max of all elements in the vector
 .    var max: @{ult[i]} { simd_reduce_max(self) }
 .    /// The min of all elements in the vector
-.    var min: @{ult[i]} { simd_reduce_max(self) }
+.    var min: @{ult[i]} { simd_reduce_min(self) }
 .    /// Returns linear interpolation of `self` with `with` by `alpha` percent
 .    func lerp(with: @{simdt[i]}, by alpha: @{simdt[i]}) -> Self {
 .        simd_mix(self, with, alpha)
