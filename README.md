@@ -4,7 +4,7 @@ This package extends Swift's `simd` data types making them easier to use.
 
 ## Why?
 
-Using SIMD vector arithmetic yields better performance, especially for graphics intensive software such as (FieldFab for iOS)[https:\\fieldfab.net]. This package enables a very Swifty API for SIMD data types that make it much easier to use (no need to look at all the overloads for `simd_insphere` to see what types support it because now it's baked into the container!). Rather than dealing with global functions all the SIMD arithmetic functions are encapsulated in their underlying type. 
+Using SIMD vector arithmetic yields better performance, especially for graphics intensive software such as [FieldFab for iOS](https://fieldfab.net/). This package enables a very Swifty API for SIMD data types that make it much easier to use (no need to look at all the overloads for `simd_insphere` to see what types support it because now it's baked into the container!). Rather than dealing with global functions all the SIMD arithmetic functions are encapsulated in their underlying type. 
 
 ## How?
 
