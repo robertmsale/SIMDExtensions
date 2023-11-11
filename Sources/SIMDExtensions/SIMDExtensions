@@ -299,6 +299,7 @@ if (i == 2 || i == 7) {
 .            self.init( (m13 + m31) / s, (m32 + m23) / s, @{ult[i]}(0.25) * s, (m12 - m21) / s )
 .        }
 .    }
+.    /// Initialize from Unit Vectors
 .    init(from: SIMD3<@{ult[i]}>, to: SIMD3<@{ult[i]}>) {
 .        var r = from.dot(with: to) + 1
 .        if r < @{ult[i]}.ulpOfOne {

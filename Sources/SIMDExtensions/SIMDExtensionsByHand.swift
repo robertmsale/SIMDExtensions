@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SIMDExtensionsByHand.swift
 //  
 //
 //  Created by Robert Sale on 1/18/23.
@@ -41,4 +41,16 @@ public struct Spherical<T: SIMDScalar>: SIMDRepresentable {
 public extension BinaryFloatingPoint {
     /// Clamp `self` between numbers `min` and `max`
     func clamp(_ min: Self, _ max: Self) -> Self { Swift.min(max, Swift.max(min, self))}
+}
+
+
+public extension SIMD4<Float> {
+    var isNormalized: Bool {
+        lengthSquared == 1.0
+    }
+}
+public extension SIMD4<Double> {
+    var isNormalized: Bool {
+        lengthSquared == 1.0
+    }
 }
