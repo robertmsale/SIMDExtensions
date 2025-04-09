@@ -9,173 +9,173 @@ import SceneKit
 #endif
 public extension SIMD2<Float> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD2<Float>) -> Float {
+    @inlinable func distance(to: SIMD2<Float>) -> Float {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD2<Float>) -> Float {
+    @inlinable func distanceFast(to: SIMD2<Float>) -> Float {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD2<Float>) -> Float {
+    @inlinable func distancePrecise(to: SIMD2<Float>) -> Float {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Float { simd_length(self) }
+    @inlinable var length: Float { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Float { simd_length_squared(self) }
+    @inlinable var lengthSquared: Float { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD2<Float>, max: SIMD2<Float>) -> SIMD2<Float> {
+    @inlinable func clamp(min: SIMD2<Float>, max: SIMD2<Float>) -> SIMD2<Float> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Float, max: Float) -> SIMD2<Float> {
+    @inlinable func clamp(min: Float, max: Float) -> SIMD2<Float> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Float { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Float { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Float { simd_reduce_max(self) }
+    @inlinable var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_min(self) }
+    @inlinable var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD2<Float>, by alpha: SIMD2<Float>) -> Self {
+    @inlinable func lerp(with: SIMD2<Float>, by alpha: SIMD2<Float>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD2<Float>, by alpha: Float) -> Self {
+    @inlinable func lerp(with: SIMD2<Float>, by alpha: Float) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD2<Float>, by alpha: SIMD2<Float>) -> Self {
+    @inlinable func smoothstep(with: SIMD2<Float>, by alpha: SIMD2<Float>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Cross product of two vectors
-    func cross(with: Self) -> SIMD3<Float> { simd_cross(self, with) }
+    @inlinable func cross(with: Self) -> SIMD3<Float> { simd_cross(self, with) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Float { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Float { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
-    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
     /// Refraction of `self` as incident vector with a unit normal vector and refraction
-    func refract(on normal: Self, idx of: Float) -> Self { simd_refract(self, normal, of) }
+    @inlinable func refract(on normal: Self, idx of: Float) -> Self { simd_refract(self, normal, of) }
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Ceil of each element
     @available(iOS 15, *)
-    var asCeil: Self { simd.ceil(self) }
+    @inlinable var asCeil: Self { simd.ceil(self) }
     /// Floor of each element
     @available(iOS 15, *)
-    var floor: Self { simd.floor(self) }
+    @inlinable var floor: Self { simd.floor(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     /// Each element rounded toward zero to nearest integer
-    var trunc: Self { simd.trunc(self) }
+    @inlinable var trunc: Self { simd.trunc(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Float] {
+    @inlinable var asArray: [Float] {
         get {[
             x,
             y,
@@ -186,15 +186,18 @@ public extension SIMD2<Float> {
             y = v[1]; if sm1 == 1 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Float]) {
+    @inlinable init(array: [Float]) {
         self.init()
         asArray = array
     }
-    func rotate(around center: Self, angle: Float) -> Self {
+    @inlinable func rotate(around center: Self, angle: Float) -> Self {
         let c = Foundation.cos(angle)
         let s = Foundation.sin(angle)
         let xy = self - center
@@ -205,179 +208,179 @@ public extension SIMD2<Float> {
         return v1 * v2 + v3 * v4 + center
     }
 #if canImport(CoreGraphics)
-    var asCGPoint: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
-    var asCGSize: CGSize { CGSize(width: CGFloat(x), height: CGFloat(y)) }
+    @inlinable var asCGPoint: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
+    @inlinable var asCGSize: CGSize { CGSize(width: CGFloat(x), height: CGFloat(y)) }
 #endif
 }
 public extension SIMD3<Float> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD3<Float>) -> Float {
+    @inlinable func distance(to: SIMD3<Float>) -> Float {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD3<Float>) -> Float {
+    @inlinable func distanceFast(to: SIMD3<Float>) -> Float {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD3<Float>) -> Float {
+    @inlinable func distancePrecise(to: SIMD3<Float>) -> Float {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Float { simd_length(self) }
+    @inlinable var length: Float { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Float { simd_length_squared(self) }
+    @inlinable var lengthSquared: Float { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD3<Float>, max: SIMD3<Float>) -> SIMD3<Float> {
+    @inlinable func clamp(min: SIMD3<Float>, max: SIMD3<Float>) -> SIMD3<Float> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Float, max: Float) -> SIMD3<Float> {
+    @inlinable func clamp(min: Float, max: Float) -> SIMD3<Float> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Float { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Float { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Float { simd_reduce_max(self) }
+    @inlinable var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_min(self) }
+    @inlinable var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD3<Float>, by alpha: SIMD3<Float>) -> Self {
+    @inlinable func lerp(with: SIMD3<Float>, by alpha: SIMD3<Float>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD3<Float>, by alpha: Float) -> Self {
+    @inlinable func lerp(with: SIMD3<Float>, by alpha: Float) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD3<Float>, by alpha: SIMD3<Float>) -> Self {
+    @inlinable func smoothstep(with: SIMD3<Float>, by alpha: SIMD3<Float>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Cross product of two vectors
-    func cross(with: Self) -> SIMD3<Float> { simd_cross(self, with) }
+    @inlinable func cross(with: Self) -> SIMD3<Float> { simd_cross(self, with) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Float { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Float { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
-    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
     /// Refraction of `self` as incident vector with a unit normal vector and refraction
-    func refract(on normal: Self, idx of: Float) -> Self { simd_refract(self, normal, of) }
+    @inlinable func refract(on normal: Self, idx of: Float) -> Self { simd_refract(self, normal, of) }
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Ceil of each element
     @available(iOS 15, *)
-    var asCeil: Self { simd.ceil(self) }
+    @inlinable var asCeil: Self { simd.ceil(self) }
     /// Floor of each element
     @available(iOS 15, *)
-    var floor: Self { simd.floor(self) }
+    @inlinable var floor: Self { simd.floor(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     /// Each element rounded toward zero to nearest integer
-    var trunc: Self { simd.trunc(self) }
+    @inlinable var trunc: Self { simd.trunc(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Float] {
+    @inlinable var asArray: [Float] {
         get {[
             x,
             y,
@@ -390,15 +393,18 @@ public extension SIMD3<Float> {
             z = v[2]; if sm1 == 2 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Float]) {
+    @inlinable init(array: [Float]) {
         self.init()
         asArray = array
     }
-    func project(vec on: Self) -> Self {
+    @inlinable func project(vec on: Self) -> Self {
         let denom = self.lengthSquared
         if denom == 0 { return Self() }
         let scalar = on.dot(with: self) / denom
@@ -406,195 +412,195 @@ public extension SIMD3<Float> {
     }
 #if canImport(SwiftUI)
     @available(iOS 13, *)
-    var asColor: Color {
+    @inlinable var asColor: Color {
         let norm = normalized
         return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z))
     }
 #endif
 #if canImport(CoreGraphics)
-    var asUIColor: UIColor {
+    @inlinable var asUIColor: UIColor {
         let norm = normalized
         return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
     }
     @available(iOS 13, *)
-    var asCGColor: CGColor {
+    @inlinable var asCGColor: CGColor {
         let norm = normalized
         return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
     }
 #endif
 #if canImport(SceneKit)
-    var asSCNV3: SCNVector3 {
+    @inlinable var asSCNV3: SCNVector3 {
         SCNVector3(Float(x), Float(y), Float(z))
     }
 #endif
 }
 public extension SIMD4<Float> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD4<Float>) -> Float {
+    @inlinable func distance(to: SIMD4<Float>) -> Float {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD4<Float>) -> Float {
+    @inlinable func distanceFast(to: SIMD4<Float>) -> Float {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD4<Float>) -> Float {
+    @inlinable func distancePrecise(to: SIMD4<Float>) -> Float {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Float { simd_length(self) }
+    @inlinable var length: Float { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Float { simd_length_squared(self) }
+    @inlinable var lengthSquared: Float { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD4<Float>, max: SIMD4<Float>) -> SIMD4<Float> {
+    @inlinable func clamp(min: SIMD4<Float>, max: SIMD4<Float>) -> SIMD4<Float> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Float, max: Float) -> SIMD4<Float> {
+    @inlinable func clamp(min: Float, max: Float) -> SIMD4<Float> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Float { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Float { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Float { simd_reduce_max(self) }
+    @inlinable var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_min(self) }
+    @inlinable var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD4<Float>, by alpha: SIMD4<Float>) -> Self {
+    @inlinable func lerp(with: SIMD4<Float>, by alpha: SIMD4<Float>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD4<Float>, by alpha: Float) -> Self {
+    @inlinable func lerp(with: SIMD4<Float>, by alpha: Float) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD4<Float>, by alpha: SIMD4<Float>) -> Self {
+    @inlinable func smoothstep(with: SIMD4<Float>, by alpha: SIMD4<Float>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Float { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Float { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
-    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
     /// Refraction of `self` as incident vector with a unit normal vector and refraction
-    func refract(on normal: Self, idx of: Float) -> Self { simd_refract(self, normal, of) }
+    @inlinable func refract(on normal: Self, idx of: Float) -> Self { simd_refract(self, normal, of) }
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Ceil of each element
     @available(iOS 15, *)
-    var asCeil: Self { simd.ceil(self) }
+    @inlinable var asCeil: Self { simd.ceil(self) }
     /// Floor of each element
     @available(iOS 15, *)
-    var floor: Self { simd.floor(self) }
+    @inlinable var floor: Self { simd.floor(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     /// Each element rounded toward zero to nearest integer
-    var trunc: Self { simd.trunc(self) }
+    @inlinable var trunc: Self { simd.trunc(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Float] {
+    @inlinable var asArray: [Float] {
         get {[
             x,
             y,
@@ -609,11 +615,14 @@ public extension SIMD4<Float> {
             w = v[3]; if sm1 == 3 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Float]) {
+    @inlinable init(array: [Float]) {
         self.init()
         asArray = array
     }
@@ -693,6 +702,7 @@ public extension SIMD4<Float> {
             self.init( (m13 + m31) / s, (m32 + m23) / s, Float(0.25) * s, (m12 - m21) / s )
         }
     }
+    /// Initialize from Unit Vectors
     init(from: SIMD3<Float>, to: SIMD3<Float>) {
         var r = from.dot(with: to) + 1
         if r < Float.ulpOfOne {
@@ -707,10 +717,10 @@ public extension SIMD4<Float> {
         }
         self = normalized
     }
-    func angle(to: Self) -> Float {
+    @inlinable func angle(to: Self) -> Float {
         2 * Foundation.acos(Swift.abs((self.dot(with: to)).clamp(-1, 1)))
     }
-    func rotate(towards: Self, step: Float) -> Self {
+    @inlinable func rotate(towards: Self, step: Float) -> Self {
         let ang = angle(to: towards)
         if (ang == 0) {return self}
         let t = Swift.min(1, step / ang)
@@ -744,7 +754,7 @@ public extension SIMD4<Float> {
         let ratioB = Foundation.sin( t * halfTheta ) / sinHalfTheta
         return (self * ratioA + rv * ratioB)
     }
-    var invert: Self { Self(-x, -y, -z, w) }
+    @inlinable var invert: Self { Self(-x, -y, -z, w) }
     func multiply(by: Self) -> Self {
         let v1 = Self(repeating: by.w)
         let v2 = Self(self.w, self.w, self.w, -self.x)
@@ -755,23 +765,23 @@ public extension SIMD4<Float> {
         let v7 = Self(by.y, by.z, by.x, by.z)
         return self * v1 + v2 * v3 + v4 * v5 + v6 * v7
     }
-    func preMultiply(by: Self) -> Self {
+    @inlinable func preMultiply(by: Self) -> Self {
         return by.multiply(by: self)
     }
 #if canImport(SwiftUI)
     @available(iOS 13, *)
-    var asColor: Color {
+    @inlinable var asColor: Color {
         let norm = normalized
         return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z), opacity: Double(norm.w))
     }
 #endif
 #if canImport(CoreGraphics)
-    var asUIColor: UIColor {
+    @inlinable var asUIColor: UIColor {
         let norm = normalized
         return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
     }
     @available(iOS 13, *)
-    var asCGColor: CGColor {
+    @inlinable var asCGColor: CGColor {
         let norm = normalized
         return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
     }
@@ -779,160 +789,160 @@ public extension SIMD4<Float> {
 }
 public extension SIMD8<Float> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD8<Float>) -> Float {
+    @inlinable func distance(to: SIMD8<Float>) -> Float {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD8<Float>) -> Float {
+    @inlinable func distanceFast(to: SIMD8<Float>) -> Float {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD8<Float>) -> Float {
+    @inlinable func distancePrecise(to: SIMD8<Float>) -> Float {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Float { simd_length(self) }
+    @inlinable var length: Float { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Float { simd_length_squared(self) }
+    @inlinable var lengthSquared: Float { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD8<Float>, max: SIMD8<Float>) -> SIMD8<Float> {
+    @inlinable func clamp(min: SIMD8<Float>, max: SIMD8<Float>) -> SIMD8<Float> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Float, max: Float) -> SIMD8<Float> {
+    @inlinable func clamp(min: Float, max: Float) -> SIMD8<Float> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Float { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Float { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Float { simd_reduce_max(self) }
+    @inlinable var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_min(self) }
+    @inlinable var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD8<Float>, by alpha: SIMD8<Float>) -> Self {
+    @inlinable func lerp(with: SIMD8<Float>, by alpha: SIMD8<Float>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD8<Float>, by alpha: Float) -> Self {
+    @inlinable func lerp(with: SIMD8<Float>, by alpha: Float) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD8<Float>, by alpha: SIMD8<Float>) -> Self {
+    @inlinable func smoothstep(with: SIMD8<Float>, by alpha: SIMD8<Float>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Float { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Float { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Float] {
+    @inlinable var asArray: [Float] {
         get {[
             lowHalf.x,
             lowHalf.y,
@@ -955,171 +965,174 @@ public extension SIMD8<Float> {
             highHalf.w = v[7]; if sm1 == 7 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Float]) {
+    @inlinable init(array: [Float]) {
         self.init()
         asArray = array
     }
 }
 public extension SIMD16<Float> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD16<Float>) -> Float {
+    @inlinable func distance(to: SIMD16<Float>) -> Float {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD16<Float>) -> Float {
+    @inlinable func distanceFast(to: SIMD16<Float>) -> Float {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD16<Float>) -> Float {
+    @inlinable func distancePrecise(to: SIMD16<Float>) -> Float {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Float { simd_length(self) }
+    @inlinable var length: Float { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Float { simd_length_squared(self) }
+    @inlinable var lengthSquared: Float { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD16<Float>, max: SIMD16<Float>) -> SIMD16<Float> {
+    @inlinable func clamp(min: SIMD16<Float>, max: SIMD16<Float>) -> SIMD16<Float> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Float, max: Float) -> SIMD16<Float> {
+    @inlinable func clamp(min: Float, max: Float) -> SIMD16<Float> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Float { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Float { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Float { simd_reduce_max(self) }
+    @inlinable var max: Float { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Float { simd_reduce_min(self) }
+    @inlinable var min: Float { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD16<Float>, by alpha: SIMD16<Float>) -> Self {
+    @inlinable func lerp(with: SIMD16<Float>, by alpha: SIMD16<Float>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD16<Float>, by alpha: Float) -> Self {
+    @inlinable func lerp(with: SIMD16<Float>, by alpha: Float) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD16<Float>, by alpha: SIMD16<Float>) -> Self {
+    @inlinable func smoothstep(with: SIMD16<Float>, by alpha: SIMD16<Float>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Float { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Float { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Float] {
+    @inlinable var asArray: [Float] {
         get {[
             lowHalf.lowHalf.x,
             lowHalf.lowHalf.y,
@@ -1158,184 +1171,187 @@ public extension SIMD16<Float> {
             highHalf.highHalf.w = v[15]; if sm1 == 15 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Float]) {
+    @inlinable init(array: [Float]) {
         self.init()
         asArray = array
     }
 }
 public extension SIMD2<Double> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD2<Double>) -> Double {
+    @inlinable func distance(to: SIMD2<Double>) -> Double {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD2<Double>) -> Double {
+    @inlinable func distanceFast(to: SIMD2<Double>) -> Double {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD2<Double>) -> Double {
+    @inlinable func distancePrecise(to: SIMD2<Double>) -> Double {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Double { simd_length(self) }
+    @inlinable var length: Double { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Double { simd_length_squared(self) }
+    @inlinable var lengthSquared: Double { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD2<Double>, max: SIMD2<Double>) -> SIMD2<Double> {
+    @inlinable func clamp(min: SIMD2<Double>, max: SIMD2<Double>) -> SIMD2<Double> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Double, max: Double) -> SIMD2<Double> {
+    @inlinable func clamp(min: Double, max: Double) -> SIMD2<Double> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Double { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Double { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Double { simd_reduce_max(self) }
+    @inlinable var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_min(self) }
+    @inlinable var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD2<Double>, by alpha: SIMD2<Double>) -> Self {
+    @inlinable func lerp(with: SIMD2<Double>, by alpha: SIMD2<Double>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD2<Double>, by alpha: Double) -> Self {
+    @inlinable func lerp(with: SIMD2<Double>, by alpha: Double) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD2<Double>, by alpha: SIMD2<Double>) -> Self {
+    @inlinable func smoothstep(with: SIMD2<Double>, by alpha: SIMD2<Double>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Cross product of two vectors
-    func cross(with: Self) -> SIMD3<Double> { simd_cross(self, with) }
+    @inlinable func cross(with: Self) -> SIMD3<Double> { simd_cross(self, with) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Double { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Double { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
-    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
     /// Refraction of `self` as incident vector with a unit normal vector and refraction
-    func refract(on normal: Self, idx of: Double) -> Self { simd_refract(self, normal, of) }
+    @inlinable func refract(on normal: Self, idx of: Double) -> Self { simd_refract(self, normal, of) }
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Ceil of each element
     @available(iOS 15, *)
-    var asCeil: Self { simd.ceil(self) }
+    @inlinable var asCeil: Self { simd.ceil(self) }
     /// Floor of each element
     @available(iOS 15, *)
-    var floor: Self { simd.floor(self) }
+    @inlinable var floor: Self { simd.floor(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     /// Each element rounded toward zero to nearest integer
-    var trunc: Self { simd.trunc(self) }
+    @inlinable var trunc: Self { simd.trunc(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Double] {
+    @inlinable var asArray: [Double] {
         get {[
             x,
             y,
@@ -1346,15 +1362,18 @@ public extension SIMD2<Double> {
             y = v[1]; if sm1 == 1 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Double]) {
+    @inlinable init(array: [Double]) {
         self.init()
         asArray = array
     }
-    func rotate(around center: Self, angle: Double) -> Self {
+    @inlinable func rotate(around center: Self, angle: Double) -> Self {
         let c = Foundation.cos(angle)
         let s = Foundation.sin(angle)
         let xy = self - center
@@ -1365,179 +1384,179 @@ public extension SIMD2<Double> {
         return v1 * v2 + v3 * v4 + center
     }
 #if canImport(CoreGraphics)
-    var asCGPoint: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
-    var asCGSize: CGSize { CGSize(width: CGFloat(x), height: CGFloat(y)) }
+    @inlinable var asCGPoint: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
+    @inlinable var asCGSize: CGSize { CGSize(width: CGFloat(x), height: CGFloat(y)) }
 #endif
 }
 public extension SIMD3<Double> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD3<Double>) -> Double {
+    @inlinable func distance(to: SIMD3<Double>) -> Double {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD3<Double>) -> Double {
+    @inlinable func distanceFast(to: SIMD3<Double>) -> Double {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD3<Double>) -> Double {
+    @inlinable func distancePrecise(to: SIMD3<Double>) -> Double {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Double { simd_length(self) }
+    @inlinable var length: Double { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Double { simd_length_squared(self) }
+    @inlinable var lengthSquared: Double { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD3<Double>, max: SIMD3<Double>) -> SIMD3<Double> {
+    @inlinable func clamp(min: SIMD3<Double>, max: SIMD3<Double>) -> SIMD3<Double> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Double, max: Double) -> SIMD3<Double> {
+    @inlinable func clamp(min: Double, max: Double) -> SIMD3<Double> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Double { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Double { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Double { simd_reduce_max(self) }
+    @inlinable var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_min(self) }
+    @inlinable var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD3<Double>, by alpha: SIMD3<Double>) -> Self {
+    @inlinable func lerp(with: SIMD3<Double>, by alpha: SIMD3<Double>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD3<Double>, by alpha: Double) -> Self {
+    @inlinable func lerp(with: SIMD3<Double>, by alpha: Double) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD3<Double>, by alpha: SIMD3<Double>) -> Self {
+    @inlinable func smoothstep(with: SIMD3<Double>, by alpha: SIMD3<Double>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Cross product of two vectors
-    func cross(with: Self) -> SIMD3<Double> { simd_cross(self, with) }
+    @inlinable func cross(with: Self) -> SIMD3<Double> { simd_cross(self, with) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Double { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Double { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
-    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
     /// Refraction of `self` as incident vector with a unit normal vector and refraction
-    func refract(on normal: Self, idx of: Double) -> Self { simd_refract(self, normal, of) }
+    @inlinable func refract(on normal: Self, idx of: Double) -> Self { simd_refract(self, normal, of) }
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Ceil of each element
     @available(iOS 15, *)
-    var asCeil: Self { simd.ceil(self) }
+    @inlinable var asCeil: Self { simd.ceil(self) }
     /// Floor of each element
     @available(iOS 15, *)
-    var floor: Self { simd.floor(self) }
+    @inlinable var floor: Self { simd.floor(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     /// Each element rounded toward zero to nearest integer
-    var trunc: Self { simd.trunc(self) }
+    @inlinable var trunc: Self { simd.trunc(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Double] {
+    @inlinable var asArray: [Double] {
         get {[
             x,
             y,
@@ -1550,15 +1569,18 @@ public extension SIMD3<Double> {
             z = v[2]; if sm1 == 2 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Double]) {
+    @inlinable init(array: [Double]) {
         self.init()
         asArray = array
     }
-    func project(vec on: Self) -> Self {
+    @inlinable func project(vec on: Self) -> Self {
         let denom = self.lengthSquared
         if denom == 0 { return Self() }
         let scalar = on.dot(with: self) / denom
@@ -1566,195 +1588,195 @@ public extension SIMD3<Double> {
     }
 #if canImport(SwiftUI)
     @available(iOS 13, *)
-    var asColor: Color {
+    @inlinable var asColor: Color {
         let norm = normalized
         return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z))
     }
 #endif
 #if canImport(CoreGraphics)
-    var asUIColor: UIColor {
+    @inlinable var asUIColor: UIColor {
         let norm = normalized
         return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
     }
     @available(iOS 13, *)
-    var asCGColor: CGColor {
+    @inlinable var asCGColor: CGColor {
         let norm = normalized
         return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
     }
 #endif
 #if canImport(SceneKit)
-    var asSCNV3: SCNVector3 {
+    @inlinable var asSCNV3: SCNVector3 {
         SCNVector3(Float(x), Float(y), Float(z))
     }
 #endif
 }
 public extension SIMD4<Double> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD4<Double>) -> Double {
+    @inlinable func distance(to: SIMD4<Double>) -> Double {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD4<Double>) -> Double {
+    @inlinable func distanceFast(to: SIMD4<Double>) -> Double {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD4<Double>) -> Double {
+    @inlinable func distancePrecise(to: SIMD4<Double>) -> Double {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Double { simd_length(self) }
+    @inlinable var length: Double { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Double { simd_length_squared(self) }
+    @inlinable var lengthSquared: Double { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD4<Double>, max: SIMD4<Double>) -> SIMD4<Double> {
+    @inlinable func clamp(min: SIMD4<Double>, max: SIMD4<Double>) -> SIMD4<Double> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Double, max: Double) -> SIMD4<Double> {
+    @inlinable func clamp(min: Double, max: Double) -> SIMD4<Double> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Double { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Double { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Double { simd_reduce_max(self) }
+    @inlinable var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_min(self) }
+    @inlinable var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD4<Double>, by alpha: SIMD4<Double>) -> Self {
+    @inlinable func lerp(with: SIMD4<Double>, by alpha: SIMD4<Double>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD4<Double>, by alpha: Double) -> Self {
+    @inlinable func lerp(with: SIMD4<Double>, by alpha: Double) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD4<Double>, by alpha: SIMD4<Double>) -> Self {
+    @inlinable func smoothstep(with: SIMD4<Double>, by alpha: SIMD4<Double>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Double { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Double { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
-    func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
     /// Refraction of `self` as incident vector with a unit normal vector and refraction
-    func refract(on normal: Self, idx of: Double) -> Self { simd_refract(self, normal, of) }
+    @inlinable func refract(on normal: Self, idx of: Double) -> Self { simd_refract(self, normal, of) }
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Ceil of each element
     @available(iOS 15, *)
-    var asCeil: Self { simd.ceil(self) }
+    @inlinable var asCeil: Self { simd.ceil(self) }
     /// Floor of each element
     @available(iOS 15, *)
-    var floor: Self { simd.floor(self) }
+    @inlinable var floor: Self { simd.floor(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     /// Each element rounded toward zero to nearest integer
-    var trunc: Self { simd.trunc(self) }
+    @inlinable var trunc: Self { simd.trunc(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Double] {
+    @inlinable var asArray: [Double] {
         get {[
             x,
             y,
@@ -1769,11 +1791,14 @@ public extension SIMD4<Double> {
             w = v[3]; if sm1 == 3 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Double]) {
+    @inlinable init(array: [Double]) {
         self.init()
         asArray = array
     }
@@ -1853,6 +1878,7 @@ public extension SIMD4<Double> {
             self.init( (m13 + m31) / s, (m32 + m23) / s, Double(0.25) * s, (m12 - m21) / s )
         }
     }
+    /// Initialize from Unit Vectors
     init(from: SIMD3<Double>, to: SIMD3<Double>) {
         var r = from.dot(with: to) + 1
         if r < Double.ulpOfOne {
@@ -1867,10 +1893,10 @@ public extension SIMD4<Double> {
         }
         self = normalized
     }
-    func angle(to: Self) -> Double {
+    @inlinable func angle(to: Self) -> Double {
         2 * Foundation.acos(Swift.abs((self.dot(with: to)).clamp(-1, 1)))
     }
-    func rotate(towards: Self, step: Double) -> Self {
+    @inlinable func rotate(towards: Self, step: Double) -> Self {
         let ang = angle(to: towards)
         if (ang == 0) {return self}
         let t = Swift.min(1, step / ang)
@@ -1904,7 +1930,7 @@ public extension SIMD4<Double> {
         let ratioB = Foundation.sin( t * halfTheta ) / sinHalfTheta
         return (self * ratioA + rv * ratioB)
     }
-    var invert: Self { Self(-x, -y, -z, w) }
+    @inlinable var invert: Self { Self(-x, -y, -z, w) }
     func multiply(by: Self) -> Self {
         let v1 = Self(repeating: by.w)
         let v2 = Self(self.w, self.w, self.w, -self.x)
@@ -1915,23 +1941,23 @@ public extension SIMD4<Double> {
         let v7 = Self(by.y, by.z, by.x, by.z)
         return self * v1 + v2 * v3 + v4 * v5 + v6 * v7
     }
-    func preMultiply(by: Self) -> Self {
+    @inlinable func preMultiply(by: Self) -> Self {
         return by.multiply(by: self)
     }
 #if canImport(SwiftUI)
     @available(iOS 13, *)
-    var asColor: Color {
+    @inlinable var asColor: Color {
         let norm = normalized
         return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z), opacity: Double(norm.w))
     }
 #endif
 #if canImport(CoreGraphics)
-    var asUIColor: UIColor {
+    @inlinable var asUIColor: UIColor {
         let norm = normalized
         return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
     }
     @available(iOS 13, *)
-    var asCGColor: CGColor {
+    @inlinable var asCGColor: CGColor {
         let norm = normalized
         return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
     }
@@ -1939,160 +1965,160 @@ public extension SIMD4<Double> {
 }
 public extension SIMD8<Double> {
     /// Returns the distance between `self` and `to`
-    func distance(to: SIMD8<Double>) -> Double {
+    @inlinable func distance(to: SIMD8<Double>) -> Double {
         simd_distance(self, to)
     }
     /// Quickly returns the distance between `self` and `to`
-    func distanceFast(to: SIMD8<Double>) -> Double {
+    @inlinable func distanceFast(to: SIMD8<Double>) -> Double {
         simd_fast_distance(self, to)
     }
     /// Returns the precise distance between `self` and `to`
-    func distancePrecise(to: SIMD8<Double>) -> Double {
+    @inlinable func distancePrecise(to: SIMD8<Double>) -> Double {
         simd_precise_distance(self, to)
     }
     /// The length of `self`
-    var length: Double { simd_length(self) }
+    @inlinable var length: Double { simd_length(self) }
     /// the length squared of `self`
-    var lengthSquared: Double { simd_length_squared(self) }
+    @inlinable var lengthSquared: Double { simd_length_squared(self) }
     /// The vector where all fields are the absolute value
-    var abs: Self { simd_abs(self) }
+    @inlinable var abs: Self { simd_abs(self) }
     /// Clamps `self` to the fields of `min` and `max`
-    func clamp(min: SIMD8<Double>, max: SIMD8<Double>) -> SIMD8<Double> {
+    @inlinable func clamp(min: SIMD8<Double>, max: SIMD8<Double>) -> SIMD8<Double> {
         simd_clamp(self, min, max)
     }
     /// Clamps `self` to the values of `min` and `max`
-    func clamp(min: Double, max: Double) -> SIMD8<Double> {
+    @inlinable func clamp(min: Double, max: Double) -> SIMD8<Double> {
         simd_clamp(self, Self(repeating: min), Self(repeating: max))
     }
     /// The fractional part of each element
-    var fract: Self { simd_fract(self) }
+    @inlinable var fract: Self { simd_fract(self) }
     /// The sign of each element
-    var sign: Self { simd_sign(self) }
+    @inlinable var sign: Self { simd_sign(self) }
     /// The sum of all elements in the vector
-    var reduceAdd: Double { simd_reduce_add(self) }
+    @inlinable var reduceAdd: Double { simd_reduce_add(self) }
     /// The max of all elements in the vector
-    var max: Double { simd_reduce_max(self) }
+    @inlinable var max: Double { simd_reduce_max(self) }
     /// The min of all elements in the vector
-    var min: Double { simd_reduce_min(self) }
+    @inlinable var min: Double { simd_reduce_min(self) }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD8<Double>, by alpha: SIMD8<Double>) -> Self {
+    @inlinable func lerp(with: SIMD8<Double>, by alpha: SIMD8<Double>) -> Self {
         simd_mix(self, with, alpha)
     }
     /// Returns linear interpolation of `self` with `with` by `alpha` percent
-    func lerp(with: SIMD8<Double>, by alpha: Double) -> Self {
+    @inlinable func lerp(with: SIMD8<Double>, by alpha: Double) -> Self {
         simd_mix(self, with, Self(repeating: alpha))
     }
     /// Returns smooth interpolation of `self` with `with` by `alpha` percent
-    func smoothstep(with: SIMD8<Double>, by alpha: SIMD8<Double>) -> Self {
+    @inlinable func smoothstep(with: SIMD8<Double>, by alpha: SIMD8<Double>) -> Self {
         simd_smoothstep(self, with, alpha)
     }
     /// Default reciprocal of each element
-    var recip: Self { simd_recip(self) }
+    @inlinable var recip: Self { simd_recip(self) }
     /// Fast reciprocal of each element
-    var recipFast: Self { simd_fast_recip(self) }
+    @inlinable var recipFast: Self { simd_fast_recip(self) }
     /// Precise reciprocal of each element
-    var recipPrecise: Self { simd_precise_recip(self) }
+    @inlinable var recipPrecise: Self { simd_precise_recip(self) }
     /// Default reciprocal square root of each element
-    var rsqrt: Self { simd_rsqrt(self) }
+    @inlinable var rsqrt: Self { simd_rsqrt(self) }
     /// Fast reciprocal square root of each element
-    var rsqrtFast: Self { simd_fast_rsqrt(self) }
+    @inlinable var rsqrtFast: Self { simd_fast_rsqrt(self) }
     /// Precise reciprocal square root of each element
-    var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
+    @inlinable var rsqrtPrecise: Self { simd_precise_rsqrt(self) }
     /// `e` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp: Self { simd.exp(self) }
+    @inlinable var exp: Self { simd.exp(self) }
     /// `2` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp2: Self { simd.exp2(self) }
+    @inlinable var exp2: Self { simd.exp2(self) }
     /// `10` raised to the power of each element in vector
     @available(iOS 15, *)
-    var exp10: Self { simd.exp10(self) }
+    @inlinable var exp10: Self { simd.exp10(self) }
     /// `e-1` for each element in vector
     @available(iOS 15, *)
-    var expm1: Self { simd.expm1(self) }
+    @inlinable var expm1: Self { simd.expm1(self) }
     /// Natural logarithm of each element
     @available(iOS 15, *)
-    var log: Self { simd.log(self) }
+    @inlinable var log: Self { simd.log(self) }
     /// Base 2 Natural logarithm of each element
     @available(iOS 15, *)
-    var log2: Self { simd.log2(self) }
+    @inlinable var log2: Self { simd.log2(self) }
     /// Base 10 Natural logarithm of each element
     @available(iOS 15, *)
-    var log10: Self { simd.log10(self) }
+    @inlinable var log10: Self { simd.log10(self) }
     /// `log(1+x)` of each element
     @available(iOS 15, *)
-    var log1p: Self { simd.log1p(self) }
+    @inlinable var log1p: Self { simd.log1p(self) }
     /// Dot product of two vectors
-    func dot(with: Self) -> Double { simd_dot(self, with) }
+    @inlinable func dot(with: Self) -> Double { simd_dot(self, with) }
     /// Normalized vector
-    var normalized: Self { simd_normalize(self) }
+    @inlinable var normalized: Self { simd_normalize(self) }
     /// Quickly normalized vector
-    var normalizedFast: Self { simd_fast_normalize(self) }
+    @inlinable var normalizedFast: Self { simd_fast_normalize(self) }
     /// Precisely normalized vector
-    var normalizedPrecise: Self { simd_precise_normalize(self) }
+    @inlinable var normalizedPrecise: Self { simd_precise_normalize(self) }
     /// Project `self` onto `on`
-    func project(on to: Self) -> Self { simd_project(self, to) }
+    @inlinable func project(on to: Self) -> Self { simd_project(self, to) }
     /// Project `self` onto `on` quickly
-    func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
+    @inlinable func projectFast(on to: Self) -> Self { simd_fast_project(self, to) }
     /// Project `self` onto `on` with precision
-    func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
+    @inlinable func projectPrecise(on to: Self) -> Self { simd_precise_project(self, to) }
     /// Reflection of `self` as incident vector with a unit normal vector
     /// Inverse hyperbolic cosine of each element
     @available(iOS 15, *)
-    var acosh: Self { simd.acosh(self) }
+    @inlinable var acosh: Self { simd.acosh(self) }
     /// Inverse hyperbolic sine of each element
     @available(iOS 15, *)
-    var asinh: Self { simd.asinh(self) }
+    @inlinable var asinh: Self { simd.asinh(self) }
     /// Inverse hyperbolic tangent of each element
     @available(iOS 15, *)
-    var atanh: Self { simd.atanh(self) }
+    @inlinable var atanh: Self { simd.atanh(self) }
     /// Hyperbolic cosine of each element
     @available(iOS 15, *)
-    var cosh: Self { simd.cosh(self) }
+    @inlinable var cosh: Self { simd.cosh(self) }
     /// Hyperbolic sine of each element
     @available(iOS 15, *)
-    var sinh: Self { simd.sinh(self) }
+    @inlinable var sinh: Self { simd.sinh(self) }
     /// Hyperbolic tangent of each element
     @available(iOS 15, *)
-    var tanh: Self { simd.tanh(self) }
+    @inlinable var tanh: Self { simd.tanh(self) }
     /// Cube root of each element
     @available(iOS 15, *)
-    var cbrt: Self { simd.cbrt(self) }
+    @inlinable var cbrt: Self { simd.cbrt(self) }
     /// Error function of each element
     @available(iOS 15, *)
-    var erf: Self { simd.erf(self) }
+    @inlinable var erf: Self { simd.erf(self) }
     /// Complementary error function of each element
     @available(iOS 15, *)
-    var erfc: Self { simd.erfc(self) }
+    @inlinable var erfc: Self { simd.erfc(self) }
     /// Multiply-add result of corresponding elements in three vectors
     @available(iOS 15, *)
-    func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
+    @inlinable func fma(_ a: Self, _ b: Self) -> Self { simd.fma(self, a, b) }
     /// Modulo of `self` / `other`
     @available(iOS 15, *)
-    func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
+    @inlinable func fmod(_ other: Self) -> Self { simd.fmod(self, other) }
     /// Each element rounded to nearest integer
     @available(iOS 15, *)
-    var rounded: Self { simd.round(self) }
+    @inlinable var rounded: Self { simd.round(self) }
     @available(iOS 15, *)
-    var acos: Self { simd.acos(self) }
+    @inlinable var acos: Self { simd.acos(self) }
     @available(iOS 15, *)
-    var asin: Self { simd.asin(self) }
+    @inlinable var asin: Self { simd.asin(self) }
     @available(iOS 15, *)
-    var atan: Self { simd.atan(self) }
+    @inlinable var atan: Self { simd.atan(self) }
     @available(iOS 15, *)
-    var cos: Self { simd.cos(self) }
+    @inlinable var cos: Self { simd.cos(self) }
     @available(iOS 15, *)
-    var cospi: Self { simd.cospi(self) }
+    @inlinable var cospi: Self { simd.cospi(self) }
     @available(iOS 15, *)
-    var sin: Self { simd.sin(self) }
+    @inlinable var sin: Self { simd.sin(self) }
     @available(iOS 15, *)
-    var sinpi: Self { simd.sinpi(self) }
+    @inlinable var sinpi: Self { simd.sinpi(self) }
     @available(iOS 15, *)
-    var tan: Self { simd.tan(self) }
+    @inlinable var tan: Self { simd.tan(self) }
     @available(iOS 15, *)
-    var tanpi: Self { simd.tanpi(self) }
+    @inlinable var tanpi: Self { simd.tanpi(self) }
     /// Setting this computed property is safe from crashes
-    var asArray: [Double] {
+    @inlinable var asArray: [Double] {
         get {[
             lowHalf.x,
             lowHalf.y,
@@ -2115,38 +2141,41 @@ public extension SIMD8<Double> {
             highHalf.w = v[7]; if sm1 == 7 { return }
         }
     }
+    @inlinable var reversed: Self {
+        Self(asArray.reversed())
+    }
     /// Manhattan distance of `self` to `to`
-    func manhattanDistance(to: Self) -> Self {
+    @inlinable func manhattanDistance(to: Self) -> Self {
         (self - to).abs
     }
-    init(array: [Double]) {
+    @inlinable init(array: [Double]) {
         self.init()
         asArray = array
     }
 }
 public extension SIMD2<Float> {
-   var asSIMDDouble: SIMD2<Double> { SIMD2<Double>(Double(x),Double(y)) }
+   @inlinable var asSIMDDouble: SIMD2<Double> { SIMD2<Double>(Double(x),Double(y)) }
 }
 public extension SIMD2<Double> {
-   var asSIMDFloat: SIMD2<Float> { SIMD2<Float>(Float(x),Float(y)) }
+   @inlinable var asSIMDFloat: SIMD2<Float> { SIMD2<Float>(Float(x),Float(y)) }
 }
 public extension SIMD3<Float> {
-   var asSIMDDouble: SIMD3<Double> { SIMD3<Double>(Double(x),Double(y),Double(z)) }
+   @inlinable var asSIMDDouble: SIMD3<Double> { SIMD3<Double>(Double(x),Double(y),Double(z)) }
 }
 public extension SIMD3<Double> {
-   var asSIMDFloat: SIMD3<Float> { SIMD3<Float>(Float(x),Float(y),Float(z)) }
+   @inlinable var asSIMDFloat: SIMD3<Float> { SIMD3<Float>(Float(x),Float(y),Float(z)) }
 }
 public extension SIMD4<Float> {
-   var asSIMDDouble: SIMD4<Double> { SIMD4<Double>(Double(x),Double(y),Double(z),Double(w)) }
+   @inlinable var asSIMDDouble: SIMD4<Double> { SIMD4<Double>(Double(x),Double(y),Double(z),Double(w)) }
 }
 public extension SIMD4<Double> {
-   var asSIMDFloat: SIMD4<Float> { SIMD4<Float>(Float(x),Float(y),Float(z),Float(w)) }
+   @inlinable var asSIMDFloat: SIMD4<Float> { SIMD4<Float>(Float(x),Float(y),Float(z),Float(w)) }
 }
 public extension SIMD8<Float> {
-   var asSIMDDouble: SIMD8<Double> { SIMD8<Double>(Double(lowHalf.x),Double(lowHalf.y),Double(lowHalf.z),Double(lowHalf.w),Double(highHalf.x),Double(highHalf.y),Double(highHalf.z),Double(highHalf.w)) }
+   @inlinable var asSIMDDouble: SIMD8<Double> { SIMD8<Double>(Double(lowHalf.x),Double(lowHalf.y),Double(lowHalf.z),Double(lowHalf.w),Double(highHalf.x),Double(highHalf.y),Double(highHalf.z),Double(highHalf.w)) }
 }
 public extension SIMD8<Double> {
-   var asSIMDFloat: SIMD8<Float> { SIMD8<Float>(Float(lowHalf.x),Float(lowHalf.y),Float(lowHalf.z),Float(lowHalf.w),Float(highHalf.x),Float(highHalf.y),Float(highHalf.z),Float(highHalf.w)) }
+   @inlinable var asSIMDFloat: SIMD8<Float> { SIMD8<Float>(Float(lowHalf.x),Float(lowHalf.y),Float(lowHalf.z),Float(lowHalf.w),Float(highHalf.x),Float(highHalf.y),Float(highHalf.z),Float(highHalf.w)) }
 }
 public extension Spherical where T == Float {
     /// Initialize Spherical using 3D Vector in cartesian coordinate space
@@ -2162,14 +2191,14 @@ public extension Spherical where T == Float {
         }
     }
     /// Sphirical where phi is restricted to between EPS and PI-EPS
-    var asSafe: Spherical {
+    @inlinable var asSafe: Spherical {
         var sph = self
         let EPS = Float.ulpOfOne
         sph.phi = Swift.max(EPS, Swift.min(Float.pi - EPS, sph.phi))
         return sph
     }
     /// Restrict phi to between EPS and PI-EPS
-    mutating func makeSafe() {
+    @inlinable mutating func makeSafe() {
        self = asSafe
     }
     /// Spherical coordinates represented as cartesian coordinates
@@ -2194,14 +2223,14 @@ public extension Spherical where T == Double {
         }
     }
     /// Sphirical where phi is restricted to between EPS and PI-EPS
-    var asSafe: Spherical {
+    @inlinable var asSafe: Spherical {
         var sph = self
         let EPS = Double.ulpOfOne
         sph.phi = Swift.max(EPS, Swift.min(Double.pi - EPS, sph.phi))
         return sph
     }
     /// Restrict phi to between EPS and PI-EPS
-    mutating func makeSafe() {
+    @inlinable mutating func makeSafe() {
        self = asSafe
     }
     /// Spherical coordinates represented as cartesian coordinates

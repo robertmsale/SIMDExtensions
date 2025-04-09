@@ -67,4 +67,7 @@ final class SIMDExtensionsTests: XCTestCase {
     func testNorm() throws {
         XCTAssertEqual(V3(5, 2.5, 0).normalized, V3(0.8944272, 0.4472136, 0.0))
     }
+    func testReversed() throws {
+        XCTAssertEqual(V3(1, 2, 3).reversed, V3(3, 2, 1))
+    }
 }
