@@ -1,0 +1,11 @@
+if (idx == 0 || idx == 1 || idx == 5 || idx == 6) {
+.    /// Computes the cross product of this vector with another vector.
+.    ///
+.    /// The cross product is defined for 3-dimensional vectors and returns a vector
+.    /// perpendicular to both input vectors. It is commonly used in graphics and physics
+.    /// to compute normals and rotational effects.
+.    ///
+.    /// - Parameter with: The other vector to compute the cross product with.
+.    /// - Returns: A `SIMD3<@{ult}>` vector perpendicular to both `self` and `with`.
+.    @inlinable func cross(with: Self) -> SIMD3<@{ult}> { simd_cross(self, with) }
+}

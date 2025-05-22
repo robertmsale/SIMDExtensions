@@ -1,0 +1,58 @@
+const { argv } = require('node:process')
+
+let idx = parseInt(argv[2])
+let simdt = argv[3]
+let ult = argv[4]
+let qt = ["x", "y", "z", "w"]
+let lh = [ 'lowHalf.', 'highHalf.' ]
+let intv = {
+    "Float": "Int32",
+    "Double": "Int"
+}
+let simdvals = [
+    ["x", "y"],
+    ["x", "y", "z"],
+    qt,
+    lh.flatMap((v) => qt.map((g) => `${v}${g}`)),
+    lh.flatMap((l) => lh.flatMap((h) => qt.map((g) => `${l}${h}${g}`))),
+    ["x", "y"],
+    ["x", "y", "z"],
+    qt,
+    lh.flatMap((v) => qt.map((g) => `${v}${g}`)),
+]
+let props = simdvals[idx]
+let availability = "@available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *)"
+
+.import Foundation
+.import simd
+.#if canImport(Accelerate)
+.import Accelerate
+.#endif
+.#if canImport(SwiftUI)
+.import SwiftUI
+.#endif
+.#if canImport(SceneKit)
+.import SceneKit
+.#endif
+.#if canImport(Darwin)
+.import Darwin
+.#elseif canImport(Glibc)
+.import Glibc
+.#elseif canImport(CRT) // Swift‑windows toolchain
+.import CRT
+.#else
+.#error("No known C standard library module for this platform")
+.#endif
+
+.public extension @{simdt} {
+./!include("./impl.common.js.dna")
+./!include("./impl.crossable.js.dna")
+./!include("./impl.geometric.js.dna")
+./!include("./impl.quaternion.js.dna")
+./!include("./impl.3D.js.dna")
+./!include("./impl.2D.js.dna")
+.}
+
+
+./!include("./impl.spherical.js.dna")
+./!include("./impl.view.js.dna")

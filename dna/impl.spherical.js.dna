@@ -1,0 +1,68 @@
+if (idx === 1 || idx === 6) {
+.public extension Spherical where T == @{ult} {
+let v = `simd${ult[0]}`
+.    /// Initializes spherical coordinates from a 3D Cartesian vector.
+.    ///
+.    /// Converts the Cartesian vector `@{v}` into spherical coordinates
+.    /// consisting of radius, azimuthal angle (`theta`), and polar angle (`phi`).
+.    ///
+.    /// - Parameter @{v}: A 3D vector in Cartesian coordinates.
+.    /// 
+.    /// The spherical coordinates are computed as:
+.    /// - `radius`: The length (magnitude) of the vector.
+.    /// - `theta`: The azimuthal angle in radians, measured from the positive z-axis toward the x-axis.
+.    /// - `phi`: The polar angle in radians, measured from the positive y-axis.
+.    ///
+.    /// If the vector has zero length, both angles default to zero.
+.    init(cartesian @{v}: @{simdt}) {
+.        simd = @{simdt}()
+.        radius = @{v}.length
+.        if radius == 0 {
+.            theta = 0
+.            phi = 0
+.        } else {
+.            theta = Foundation.atan2(@{v}.x, @{v}.z)
+.            phi = Foundation.acos((@{v}.y / radius).clamp(-1, 1))
+.        }
+.    }
+.    /// Returns a version of the spherical coordinates with `phi` safely clamped.
+.    ///
+.    /// This property restricts the polar angle `phi` to the range [EPS, π - EPS],
+.    /// where `EPS` is the smallest positive representable value for the scalar type.
+.    /// This avoids numerical issues caused by `phi` values exactly at 0 or π,
+.    /// which can lead to singularities or undefined behavior in calculations.
+.    ///
+.    /// - Returns: A `Spherical` instance with `phi` clamped to the safe range.
+.    @inlinable var asSafe: Spherical {
+.        var sph = self
+.        let EPS = @{ult}.ulpOfOne
+.        sph.phi = Swift.max(EPS, Swift.min(@{ult}.pi - EPS, sph.phi))
+.        return sph
+.    }
+.    /// Restricts the polar angle `phi` to a safe range within the spherical coordinates.
+.    ///
+.    /// This method clamps `phi` to the range [EPS, π - EPS], where `EPS` is the
+.    /// smallest positive representable value for the scalar type. This prevents
+.    /// numerical issues or singularities caused by `phi` values at the boundaries.
+.    ///
+.    /// After calling this method, the instance is guaranteed to have a `phi` value
+.    /// safely away from 0 and π.
+.    @inlinable mutating func makeSafe() {
+.       self = asSafe
+.    }
+.    /// Converts the spherical coordinates to a 3D Cartesian vector.
+.    ///
+.    /// The conversion uses the standard spherical-to-Cartesian formulas:
+.    /// - \( x = r \sin(\phi) \sin(\theta) \)
+.    /// - \( y = r \cos(\phi) \)
+.    /// - \( z = r \sin(\phi) \cos(\theta) \)
+.    ///
+.    /// - Returns: A `@{simdt}` vector representing the Cartesian coordinates.
+.    var asCartesian: @{simdt} {
+.        let sinPhiRad = Foundation.sin(phi) * radius
+.        let l = @{simdt}(sinPhiRad, Foundation.cos(phi), sinPhiRad)
+.        let r = @{simdt}(Foundation.sin(theta), radius, Foundation.cos(theta))
+.        return l * r
+.    }
+.}
+}

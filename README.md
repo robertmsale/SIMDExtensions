@@ -1,6 +1,6 @@
 # SIMDExtensions
 
-This package extends Swift's `simd` data types making them easier to use.
+This package extends Swift's `simd` data types making them easier to use. It also provides non-SIMD implementations where necessary and works with Linux and Windows platforms.
 
 ## Why?
 

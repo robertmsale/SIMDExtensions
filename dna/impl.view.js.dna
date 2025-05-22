@@ -1,0 +1,20 @@
+if (idx === 0 || idx === 5) {
+.#if canImport(SwiftUI)
+.@{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.public extension View {
+.    func frame(_ v: @{simdt}, alignment: Alignment = .center) -> some View {
+.        return self.frame(width: CGFloat(v.x), height: CGFloat(v.y), alignment: alignment)
+.    }
+.    func frame(min: @{simdt}? = nil, ideal: @{simdt}? = nil, max: @{simdt}? = nil, alignment: Alignment = .center) -> some View {
+.        let v: [CGFloat?] = Array(arrayLiteral: min?.x, ideal?.x, max?.x, min?.y, ideal?.y, max?.y).map { $0 == nil ? nil : CGFloat($0!) }
+.        return self.frame(minWidth: v[0], idealWidth: v[1], maxWidth: v[2], minHeight: v[3], idealHeight: v[4], maxHeight: v[5], alignment: alignment)
+.    }
+.    func position(_ v: @{simdt}) -> some View {
+.        return self.position(x: CGFloat(v.x), y: CGFloat(v.y))
+.    }
+.    func offset(_ v: @{simdt}) -> some View {
+.        return self.offset(x: CGFloat(v.x), y: CGFloat(v.y))
+.    }
+.}
+.#endif
+}

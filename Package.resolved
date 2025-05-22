@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "kvsimd.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/keyvariable/kvSIMD.swift.git",
+      "state" : {
+        "revision" : "d95f3590b28ffc35c51d570a521daea1ce74e490",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-numerics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-numerics.git",
+      "state" : {
+        "revision" : "e0ec0f5f3af6f3e4d5e7a19d2af26b481acb6ba8",
+        "version" : "1.0.3"
+      }
+    }
+  ],
+  "version" : 2
+}

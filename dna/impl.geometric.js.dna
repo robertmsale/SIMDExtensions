@@ -1,0 +1,61 @@
+if (idx != 3 && idx != 4 && idx != 8) {
+.    /// Reflects the vector about the given normal vector.
+.    ///
+.    /// This function computes the reflection of `self` around the `normal` vector,
+.    /// following the formula:
+.    /// ```
+.    /// reflection = self - 2 * dot(self, normal) * normal
+.    /// ```
+.    ///
+.    /// - Parameter normal: The normal vector to reflect `self` on. It is assumed to be normalized.
+.    /// - Returns: The reflected vector.
+.    @inlinable func reflect(on normal: Self) -> Self { simd_reflect(self, normal) }
+.    /// Computes the refraction vector of `self` on the given surface normal using the specified index of refraction.
+.    ///
+.    /// This function calculates the direction of a refracted ray passing through a surface,
+.    /// based on Snell’s law. It uses the incident vector `self`, the surface `normal`,
+.    /// and the ratio of indices of refraction `of`.
+.    ///
+.    /// - Parameters:
+.    ///   - normal: The normal vector of the surface. It is assumed to be normalized.
+.    ///   - of: The ratio of indices of refraction (usually \( \eta_{incident} / \eta_{transmitted} \)).
+.    /// - Returns: The refracted vector. If total internal reflection occurs, the result is a zero vector.
+.    @inlinable func refract(on normal: Self, idx of: @{ult}) -> Self { simd_refract(self, normal, of) }
+.    /// Returns a vector where each component is rounded up to the nearest integer.
+.    ///
+.    /// On supported platforms (macOS 12+, iOS 15+, tvOS 15+, watchOS 8+), this uses the
+.    /// optimized `simd.ceil` function provided by the SIMD library.
+.    ///
+.    /// On other platforms or earlier OS versions, it falls back to a custom `_fallbackCeil`
+.    /// function that computes the ceiling element-wise.
+.    ///
+.    /// - Returns: A vector of the same type as `self` with each component rounded up.
+.    @inlinable var asCeil: Self {
+.        if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
+.            return simd.ceil(self)
+.        }
+.        return _fallbackCeil(self)
+.    }
+.    /// Returns a vector where each component is rounded down to the nearest integer.
+.    ///
+.    /// On supported platforms (macOS 12+, iOS 15+, tvOS 15+, watchOS 8+), this uses the
+.    /// optimized `simd.floor` function provided by the SIMD library.
+.    ///
+.    /// On other platforms or earlier OS versions, it falls back to a custom `_fallbackFloor`
+.    /// function that computes the floor element-wise.
+.    ///
+.    /// - Returns: A vector of the same type as `self` with each component rounded down.
+.    @inlinable var floor: Self {
+.        if #available(macOS 12.0, iOS 15.0, tvOS 15.0, watchOS 8.0, *) {
+.            return simd.floor(self)
+.        }
+.        return _fallbackFloor(self)
+.    }
+.    /// Returns a vector where each component is truncated toward zero.
+.    ///
+.    /// This property removes the fractional part of each component in `self`,
+.    /// effectively rounding each component toward zero.
+.    ///
+.    /// - Returns: A vector of the same type as `self` with each component truncated.
+.    @inlinable var trunc: Self { simd.trunc(self) }
+}

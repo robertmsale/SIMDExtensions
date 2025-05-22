@@ -1,0 +1,53 @@
+if (idx === 1 || idx === 6) {
+.    /// Projects the given vector `vec` onto `self` and returns the resulting vector.
+.    ///
+.    /// This function calculates the vector projection of `vec` onto `self`, which
+.    /// is the component of `vec` that lies in the direction of `self`.
+.    ///
+.    /// The projection is defined by:
+.    /// ```
+.    /// projection = (vec ⋅ self / |self|²) * self
+.    /// ```
+.    ///
+.    /// - Parameters:
+.    ///   - vec: The vector to be projected onto `self`.
+.    /// - Returns: The vector projection of `vec` onto `self`.
+.    ///   Returns a zero vector if `self` has zero length to avoid division by zero.
+.    ///
+.    /// - Note:
+.    /// The function safely handles the case where `self` is the zero vector by returning
+.    /// a zero vector, preventing invalid computations.
+.    @inlinable func project(vec on: Self) -> Self {
+.        let denom = self.lengthSquared
+.        if denom == 0 { return Self() }
+.        let scalar = on.dot(with: self) / denom
+.        return on * scalar
+.    }
+.#if canImport(SwiftUI)
+.    @{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.    @inlinable var asColor: Color {
+.        let norm = normalized
+.        return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z))
+.    }
+.#endif
+
+.#if canImport(UIKit)
+.    @{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.    @inlinable var asUIColor: UIColor {
+.        let norm = normalized
+.        return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
+.    }
+.#endif
+.#if canImport(CoreGraphics)
+.    @{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.    @inlinable var asCGColor: CGColor {
+.        let norm = normalized
+.        return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: 1.0)
+.    }
+.#endif
+.#if canImport(SceneKit)
+.    @inlinable var asSCNV3: SCNVector3 {
+.        SCNVector3(Float(x), Float(y), Float(z))
+.    }
+.#endif
+}

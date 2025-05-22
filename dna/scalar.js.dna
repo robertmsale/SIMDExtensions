@@ -1,0 +1,61 @@
+let protofuncs = [
+    { proto: "_acos", fallback: "_fallbackAcos", params: 1, retval: "Self"},
+    { proto: "_acosh", fallback: "_fallbackAcosh", params: 1, retval: "Self"},
+    { proto: "_asin", fallback: "_fallbackAsin", params: 1, retval: "Self"},
+    { proto: "_asinh", fallback: "_fallbackAsinh", params: 1, retval: "Self"},
+    { proto: "_atan", fallback: "_fallbackAtan", params: 1, retval: "Self"},
+    { proto: "_atan2", fallback: "_fallbackAtan2", params: 2, retval: "Self"},
+    { proto: "_atanh", fallback: "_fallbackAtanh", params: 1, retval: "Self"},
+    { proto: "_cbrt", fallback: "_fallbackCbrt", params: 1, retval: "Self"},
+    { proto: "_ceil", fallback: "_fallbackCeil", params: 1, retval: "Self"},
+    { proto: "_cos", fallback: "_fallbackCos", params: 1, retval: "Self"},
+    { proto: "_cosh", fallback: "_fallbackCosh", params: 1, retval: "Self"},
+    { proto: "_cospi", fallback: "_fallbackCospi", params: 1, retval: "Self"},
+    { proto: "_exp", fallback: "_fallbackExp", params: 1, retval: "Self"},
+    { proto: "_exp10", fallback: "_fallbackExp10", params: 1, retval: "Self"},
+    { proto: "_exp2", fallback: "_fallbackExp2", params: 1, retval: "Self"},
+    { proto: "_expm1", fallback: "_fallbackExpm1", params: 1, retval: "Self"},
+    { proto: "_floor", fallback: "_fallbackFloor", params: 1, retval: "Self"},
+    { proto: "_fma", fallback: "_fallbackFma", params: 3, retval: "Self"},
+    { proto: "_fmod", fallback: "_fallbackFmod", params: 2, retval: "Self"},
+    { proto: "_hypot", fallback: "_fallbackHypot", params: 2, retval: "Self"},
+    { proto: "_lgamma", fallback: "_fallbackLgamma", params: 1, retval: "Self"},
+    { proto: "_log", fallback: "_fallbackLog", params: 1, retval: "Self"},
+    { proto: "_log10", fallback: "_fallbackLog10", params: 1, retval: "Self"},
+    { proto: "_log1p", fallback: "_fallbackLog1p", params: 1, retval: "Self"},
+    { proto: "_log2", fallback: "_fallbackLog2", params: 1, retval: "Self"},
+    { proto: "_nextafter", fallback: "_fallbackNextafter", params: 2, retval: "Self"},
+    { proto: "_pow", fallback: "_fallbackPow", params: 2, retval: "Self"},
+    { proto: "_remainder", fallback: "_fallbackRemainder", params: 2, retval: "Self"},
+    { proto: "_round", fallback: "_fallbackRound", params: 1, retval: "Self"},
+    { proto: "_sin", fallback: "_fallbackSin", params: 1, retval: "Self"},
+    { proto: "_sinh", fallback: "_fallbackSinh", params: 1, retval: "Self"},
+    { proto: "_sinpi", fallback: "_fallbackSinpi", params: 1, retval: "Self"},
+    { proto: "_tan", fallback: "_fallbackTan", params: 1, retval: "Self"},
+    { proto: "_tanh", fallback: "_fallbackTanh", params: 1, retval: "Self"},
+    { proto: "_tanpi", fallback: "_fallbackTanpi", params: 1, retval: "Self"},
+    { proto: "_tgamma", fallback: "_fallbackTgamma", params: 1, retval: "Self"},
+    // { proto: "_sincos", fallback: "_fallbackSincos", params: 1, retval: "(sin: Self, cos: Self)"},
+    // { proto: "_sincospi", fallback: "_fallbackSincospi", params: 1, retval: "(sin: Self, cos: Self)"},
+    // { proto: "_isfinite", fallback: "_fallbackIsfinite", params: 1, retval: "Int"},
+    // { proto: "_isinf", fallback: "_fallbackIsinf", params: 1, retval: "Int"},
+    // { proto: "_isnan", fallback: "_fallbackIsnan", params: 1, retval: "Int"},
+    // { proto: "_isnormal", fallback: "_fallbackIsnormal", params: 1, retval: "Int"},
+]
+let paramNames = ["x", "y", "z", "w"]
+for (let i = 0; i < protofuncs.length; ++i) {
+let underlyingFunc = protofuncs[i].proto
+let name = protofuncs[i].fallback
+let params = paramNames.slice(0, protofuncs[i].params).map(v => `_ ${v}: V`)
+let vars = paramNames.slice(0, protofuncs[i].params).map(v => `${v}[lane]`)
+.@inlinable func @{name}<V: SIMD>(@{params.join(", ")}) -> V
+.where V.Scalar: _ScalarReal
+.{
+.    var result = x
+.    for lane in 0..<V.scalarCount {
+.        result[lane] = V.Scalar.@{underlyingFunc}(@{vars.join(", ")})
+.    }
+.    return result
+.}
+.
+}

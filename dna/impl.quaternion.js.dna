@@ -1,0 +1,271 @@
+if (idx == 2 || idx == 7) {
+.    /// Initializes a quaternion representing a rotation around a given axis by a specified angle.
+.    ///
+.    /// The quaternion is constructed from an axis-angle representation where `axis` is a unit vector
+.    /// defining the rotation axis, and `rad` is the rotation angle in radians.
+.    ///
+.    /// - Parameters:
+.    ///   - axis: A `SIMD3` vector representing the rotation axis (should be normalized).
+.    ///   - rad: The rotation angle in radians.
+.    /// 
+.    /// The quaternion components are calculated as:
+.    /// ```
+.    /// q = (axis.x * sin(θ/2), axis.y * sin(θ/2), axis.z * sin(θ/2), cos(θ/2))
+.    /// ```
+.    /// where θ = `rad`.
+.    init(axis: SIMD3<@{ult}>, rad: @{ult}) {
+.        let halfAngle = rad / 2
+.        let s = Foundation.sin( halfAngle )
+.        self.init(axis.x * s, axis.y * s, axis.z * s, Foundation.cos( halfAngle ))
+.    }
+.    /// Initializes a quaternion from Euler angles with a specified rotation order.
+.    ///
+.    /// The Euler angles represent rotations about the x, y, and z axes, applied in the specified order.
+.    /// This initializer converts the Euler angles (in radians) into a quaternion representing the
+.    /// combined rotation.
+.    ///
+.    /// - Parameters:
+.    ///   - euler: A `SIMD3<@{ult}>` containing the rotation angles (in radians) around the x, y, and z axes.
+.    ///   - order: The order in which rotations are applied.  
+.    ///            Common orders include `.XYZ`, `.YXZ`, `.ZXY`, `.ZYX`, `.YZX`, `.XZY`.
+.    ///
+.    /// The quaternion components are computed by calculating the sine and cosine of half-angles
+.    /// and combining them according to the selected rotation order.
+.    init(euler: SIMD3<@{ult}>, order: EulerOrder) {
+    let cs = ["cos1", "cos2", "cos3", "sin1", "sin2", "sin3"]; let ax = ['x', 'y', 'z', 'x', 'y', 'z']
+    for (let j = 0; j < 6; ++j) {
+.        let @{cs[j][0] + cs[j][3]} = Foundation.@{cs[j].substr(0,3)}( euler.@{ax[j]} / 2 )
+    }
+.        switch order {
+.        case .XYZ: self.init(
+.            s1 * c2 * c3 + c1 * s2 * s3,
+.            c1 * s2 * c3 - s1 * c2 * s3,
+.            c1 * c2 * s3 + s1 * s2 * c3,
+.            c1 * c2 * c3 - s1 * s2 * s3
+.            )
+.        case .YXZ: self.init(
+.            s1 * c2 * c3 + c1 * s2 * s3,
+.            c1 * s2 * c3 - s1 * c2 * s3,
+.            c1 * c2 * s3 - s1 * s2 * c3,
+.            c1 * c2 * c3 + s1 * s2 * s3
+.            )
+.        case .ZXY: self.init(
+.            s1 * c2 * c3 - c1 * s2 * s3,
+.            c1 * s2 * c3 + s1 * c2 * s3,
+.            c1 * c2 * s3 + s1 * s2 * c3,
+.            c1 * c2 * c3 - s1 * s2 * s3
+.            )
+.        case .ZYX: self.init(
+.            s1 * c2 * c3 - c1 * s2 * s3,
+.            c1 * s2 * c3 + s1 * c2 * s3,
+.            c1 * c2 * s3 - s1 * s2 * c3,
+.            c1 * c2 * c3 + s1 * s2 * s3
+.            )
+.        case .YZX: self.init(
+.            s1 * c2 * c3 + c1 * s2 * s3,
+.            c1 * s2 * c3 + s1 * c2 * s3,
+.            c1 * c2 * s3 - s1 * s2 * c3,
+.            c1 * c2 * c3 - s1 * s2 * s3
+.            )
+.        case .XZY: self.init(
+.            s1 * c2 * c3 - c1 * s2 * s3,
+.            c1 * s2 * c3 - s1 * c2 * s3,
+.            c1 * c2 * s3 + s1 * s2 * c3,
+.            c1 * c2 * c3 + s1 * s2 * s3
+.            )
+.        }
+.    }
+    let m =  ["0.x", "0.y", "0.z", "1.x", "1.y", "1.z", "2.x", "2.y", "2.z"]
+    let ms = ["m11", "m12", "m13", "m21", "m22", "m23", "m31", "m32", "m33"]
+.    /// Initializes a quaternion from a 3x3 rotation matrix.
+.    ///
+.    /// This initializer converts a rotation matrix into a quaternion representation.
+.    /// The input matrix is expected to be a valid rotation matrix (orthonormal, determinant 1).
+.    ///
+.    /// - Parameter matrix: A 3x3 rotation matrix of type `simd_@{ult.toLowerCase()}3x3`.
+.    ///
+.    /// The conversion uses the standard algorithm based on the matrix trace to ensure numerical stability.
+.    init(matrix: simd_@{ult.toLowerCase()}3x3) {
+    for (let j = 0; j < m.length; j++) {
+.        let @{ms[j]} = matrix.columns.@{m[j]}
+    }
+.        let trace = m11 + m22 + m33
+.        if trace > 0 {
+.            let s = @{ult}(0.5) / Foundation.sqrt(trace + @{ult}(1.0))
+.            self.init( (m32 - m23) * s, (m13 - m31) * s, (m21 - m12) * s, @{ult}(0.25) / s )
+.        } else if m11 > m22 && m11 > m33 {
+.            let s = @{ult}(2.0) * Foundation.sqrt( @{ult}(1.0) + m11 - m22 - m33)
+.            self.init( @{ult}(0.25) * s, (m12 + m21) / s, (m13 + m31) / s, (m32 - m23) / s )
+.        } else if m22 > m33 {
+.            let s = @{ult}(2.0) * Foundation.sqrt( @{ult}(1.0) + m22 - m11 - m33)
+.            self.init( (m12 + m21) / s, @{ult}(0.25) * s, (m32 + m23) / s, (m13 - m31) / s )
+.        } else {
+.            let s = @{ult}(2.0) * Foundation.sqrt( @{ult}(1.0) + m33 - m11 - m22)
+.            self.init( (m13 + m31) / s, (m32 + m23) / s, @{ult}(0.25) * s, (m12 - m21) / s )
+.        }
+.    }
+.    /// Initializes a quaternion representing the rotation from one unit vector to another.
+.    ///
+.    /// This initializer computes the quaternion that rotates the `from` vector to align with the `to` vector.
+.    /// Both `from` and `to` should be normalized (unit length) vectors.
+.    ///
+.    /// - Parameters:
+.    ///   - from: The starting unit vector.
+.    ///   - to: The target unit vector.
+.    ///
+.    /// The algorithm handles the special case where the vectors point in opposite directions,
+.    /// producing a 180-degree rotation around an orthogonal axis.
+.    ///
+.    /// After construction, the quaternion is normalized to ensure a valid rotation.
+.    init(from: SIMD3<@{ult}>, to: SIMD3<@{ult}>) {
+.        var r = from.dot(with: to) + 1
+.        if r < @{ult}.ulpOfOne {
+.            r = 0
+.            if (Swift.abs(from.x) > Swift.abs(from.z)) {
+.                self.init(-from.y, from.x, 0, r)
+.            } else {
+.                self.init(0, -from.z, from.y, r)
+.            }
+.        } else {
+.            self.init(from.y * to.z - from.z * to.y, from.z * to.x - from.x * to.z, from.x * to.y - from.y * to.x, r)
+.        }
+.        self = normalized
+.    }
+.    /// Calculates the angle (in radians) between this quaternion and another quaternion.
+.    ///
+.    /// The angle is computed using the dot product and the arccosine function, representing
+.    /// the smallest rotation angle needed to rotate from `self` to `to`.
+.    ///
+.    /// - Parameter to: The target quaternion to measure the angle to.
+.    /// - Returns: The rotation angle in radians as a scalar of type `@{ult}`.
+.    ///
+.    /// - Note:
+.    /// The dot product is clamped between -1 and 1 to avoid invalid inputs to `acos`
+.    /// due to floating-point precision errors.
+.    @inlinable func angle(to: Self) -> @{ult} {
+.        2 * Foundation.acos(Swift.abs((self.dot(with: to)).clamp(-1, 1)))
+.    }
+.    /// Rotates the quaternion towards another quaternion by a limited step size.
+.    ///
+.    /// This function performs a smooth interpolation (slerp) from `self` to `towards`,
+.    /// advancing by at most `step` radians. If the angle between the quaternions is smaller
+.    /// than `step`, it returns `towards` exactly.
+.    ///
+.    /// - Parameters:
+.    ///   - towards: The target quaternion to rotate towards.
+.    ///   - step: The maximum angle in radians to rotate in this step.
+.    /// - Returns: A new quaternion rotated towards `towards` by up to `step` radians.
+.    ///
+.    /// - Note:
+.    /// If the angle to `towards` is zero (quaternions are the same), the function returns `self`.
+.    /// The interpolation parameter `t` is clamped to [0, 1] based on the ratio of `step` to angle.
+.    @inlinable func rotate(towards: Self, step: @{ult}) -> Self {
+.        let ang = angle(to: towards)
+.        if (ang == 0) {return self}
+.        let t = Swift.min(1, step / ang)
+.        return slerp( quat: towards, t: t )
+.    }
+.    /// Performs spherical linear interpolation (slerp) between this quaternion and another.
+.    ///
+.    /// This function interpolates smoothly between `self` and `quat` by the fraction `t`,
+.    /// where `t` ranges from 0 (returning `self`) to 1 (returning `quat`).  
+.    /// Slerp ensures constant angular velocity and the shortest path interpolation on the unit quaternion sphere.
+.    ///
+.    /// - Parameters:
+.    ///   - quat: The target quaternion to interpolate towards.
+.    ///   - t: The interpolation parameter in [0, 1].
+.    /// - Returns: A new quaternion interpolated between `self` and `quat`.
+.    ///
+.    /// - Note:
+.    /// If the quaternions are nearly identical or the interpolation fraction is 0 or 1,
+.    /// the function returns early for efficiency.
+.    /// If the quaternions have opposite handedness (dot product negative),
+.    /// it negates `quat` to ensure the shortest interpolation path.
+.    func slerp(quat: Self, t: @{ult}) -> Self {
+.        if t == 0 {return self}
+.        if t == 1 {return quat}
+.        var cosHalfTheta = w * quat.w + x * quat.x + y * quat.y + z * quat.z
+.        var rv = quat
+.        if cosHalfTheta < 0 {
+.            cosHalfTheta = -cosHalfTheta
+.            rv = quat * -@{ult}(1.0)
+.        }
+.        if cosHalfTheta >= 1.0 {
+.           return self
+.        }
+.        let sqrSinHalfTheta = @{ult}(1.0) - cosHalfTheta * cosHalfTheta
+.        if sqrSinHalfTheta <= @{ult}.ulpOfOne {
+.            let s = 1 - t
+.            rv.w = s * w + t * rv.w
+.            rv.x = s * x + t * rv.x
+.            rv.y = s * y + t * rv.y
+.            rv.z = s * z + t * rv.z
+.            rv = rv.normalized
+.            return rv
+.        }
+.        let sinHalfTheta = Foundation.sqrt( sqrSinHalfTheta )
+.        let halfTheta = Foundation.atan2( sinHalfTheta, cosHalfTheta )
+.        let ratioA = Foundation.sin( (1 - t) * halfTheta ) / sinHalfTheta
+.        let ratioB = Foundation.sin( t * halfTheta ) / sinHalfTheta
+.        return (self * ratioA + rv * ratioB)
+.    }
+.    /// Returns the inverse (conjugate) of the quaternion.
+.    ///
+.    /// For unit quaternions, the inverse is the conjugate, which negates the vector part
+.    /// (`x`, `y`, `z`) and leaves the scalar part (`w`) unchanged.
+.    ///
+.    /// - Returns: A new quaternion representing the inverse of `self`.
+.    @inlinable var invert: Self { Self(-x, -y, -z, w) }
+.    /// Multiplies this quaternion by another quaternion.
+.    ///
+.    /// Quaternion multiplication combines rotations represented by the two quaternions.
+.    /// The multiplication is non-commutative, meaning the order matters.
+.    ///
+.    /// This implementation uses vectorized operations and a specific SIMD-friendly
+.    /// decomposition to efficiently compute the product.
+.    ///
+.    /// - Parameter by: The quaternion to multiply with `self`.
+.    /// - Returns: A new quaternion representing the product `self * by`.
+.    func multiply(by: Self) -> Self {
+.        let v1 = Self(repeating: by.w)
+.        let v2 = Self(self.w, self.w, self.w, -self.x)
+.        let v3 = Self(by.x, by.y, by.z, by.x)
+.        let v4 = Self(self.y, self.z, self.x, -self.y)
+.        let v5 = Self(by.z, by.x, by.y, by.y)
+.        let v6 = -Self(self.z, self.x, self.y, self.z)
+.        let v7 = Self(by.y, by.z, by.x, by.z)
+.        return self * v1 + v2 * v3 + v4 * v5 + v6 * v7
+.    }
+.    /// Pre-multiplies this quaternion by another quaternion.
+.    ///
+.    /// This function returns the result of multiplying `by` by `self` (i.e., `by * self`),
+.    /// which is useful in cases where order of multiplication matters, such as applying
+.    /// rotations in sequence.
+.    ///
+.    /// - Parameter by: The quaternion to multiply before `self`.
+.    /// - Returns: The product quaternion resulting from `by * self`.
+.    @inlinable func preMultiply(by: Self) -> Self {
+.        return by.multiply(by: self)
+.    }
+.#if canImport(SwiftUI)
+.    @{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.    @inlinable var asColor: Color {
+.        let norm = normalized
+.        return Color(red: Double(norm.x), green: Double(norm.y), blue: Double(norm.z), opacity: Double(norm.w))
+.    }
+.#endif
+.#if canImport(UIKit)
+.    @{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.    @inlinable var asUIColor: UIColor {
+.        let norm = normalized
+.        return UIColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
+.    }
+.#endif
+.#if canImport(CoreGraphics)
+.    @{"@"}available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+.    @inlinable var asCGColor: CGColor {
+.        let norm = normalized
+.        return CGColor(red: CGFloat(norm.x), green: CGFloat(norm.y), blue: CGFloat(norm.z), alpha: CGFloat(norm.w))
+.    }
+.#endif
+}

@@ -1,0 +1,39 @@
+if (idx === 0 || idx === 5) {
+.    /// Rotates the vector around a specified center point by a given angle (in radians).
+.    ///
+.    /// This function applies a 2D rotation transform to the vector, treating `self`
+.    /// as a point in 2D space. The rotation is performed around the `center` point,
+.    /// by the angle specified in radians.
+.    ///
+.    /// The rotation uses the standard rotation matrix:
+.    /// ```
+.    /// [ cos(θ)  -sin(θ) ]
+.    /// [ sin(θ)   cos(θ) ]
+.    /// ```
+.    /// applied to the vector offset from the center, then translates back.
+.    ///
+.    /// - Parameters:
+.    ///   - center: The point around which to rotate the vector.
+.    ///   - angle: The angle of rotation in radians. Positive values represent
+.    ///     counterclockwise rotation.
+.    /// - Returns: A new vector representing the position of `self` after rotation.
+.    ///
+.    /// - Note:
+.    /// This function uses the Foundation trigonometric functions for sine and cosine,
+.    /// and assumes a 2D vector type with `x` and `y` components.
+.    ///
+.    @inlinable func rotate(around center: Self, angle: @{ult}) -> Self {
+.        let c = Foundation.cos(angle)
+.        let s = Foundation.sin(angle)
+.        let xy = self - center
+.        let v1 = Self(xy.x, xy.x)
+.        let v2 = Self(c, s)
+.        let v3 = Self(-xy.y, xy.y)
+.        let v4 = Self(s, c)
+.        return v1 * v2 + v3 * v4 + center
+.    }
+.#if canImport(CoreGraphics)
+.    @inlinable var asCGPoint: CGPoint { CGPoint(x: CGFloat(x), y: CGFloat(y)) }
+.    @inlinable var asCGSize: CGSize { CGSize(width: CGFloat(x), height: CGFloat(y)) }
+.#endif
+}
