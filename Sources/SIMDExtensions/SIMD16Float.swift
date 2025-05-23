@@ -60,34 +60,13 @@ public extension SIMD16<Float> {
     /// This computed property returns a new vector where each element is the
     /// square root of the corresponding element in `self`.  
     ///
-    /// The implementation uses platform-specific square root functions:
-    /// - On Linux, it uses `SwiftGlibc.sqrtf` or `SwiftGlibc.sqrt` depending on the scalar type.
-    /// - On other platforms (e.g., macOS), it uses the optimized `_math.sqrtf` or `_math.sqrt`.
-    ///
     /// - Returns: A vector of the same type as `self` with the square root applied element-wise.
     ///
     /// - Note:  
     /// This operation assumes all components are non-negative. Passing negative values
     /// will result in NaNs according to the standard floating-point sqrt behavior.
     @inlinable var sqrt: SIMD16<Float> {
-        var res = self
-        res.lowHalf.lowHalf.x = Self.Scalar.squareRoot(res.lowHalf.lowHalf.x)()
-        res.lowHalf.lowHalf.y = Self.Scalar.squareRoot(res.lowHalf.lowHalf.y)()
-        res.lowHalf.lowHalf.z = Self.Scalar.squareRoot(res.lowHalf.lowHalf.z)()
-        res.lowHalf.lowHalf.w = Self.Scalar.squareRoot(res.lowHalf.lowHalf.w)()
-        res.lowHalf.highHalf.x = Self.Scalar.squareRoot(res.lowHalf.highHalf.x)()
-        res.lowHalf.highHalf.y = Self.Scalar.squareRoot(res.lowHalf.highHalf.y)()
-        res.lowHalf.highHalf.z = Self.Scalar.squareRoot(res.lowHalf.highHalf.z)()
-        res.lowHalf.highHalf.w = Self.Scalar.squareRoot(res.lowHalf.highHalf.w)()
-        res.highHalf.lowHalf.x = Self.Scalar.squareRoot(res.highHalf.lowHalf.x)()
-        res.highHalf.lowHalf.y = Self.Scalar.squareRoot(res.highHalf.lowHalf.y)()
-        res.highHalf.lowHalf.z = Self.Scalar.squareRoot(res.highHalf.lowHalf.z)()
-        res.highHalf.lowHalf.w = Self.Scalar.squareRoot(res.highHalf.lowHalf.w)()
-        res.highHalf.highHalf.x = Self.Scalar.squareRoot(res.highHalf.highHalf.x)()
-        res.highHalf.highHalf.y = Self.Scalar.squareRoot(res.highHalf.highHalf.y)()
-        res.highHalf.highHalf.z = Self.Scalar.squareRoot(res.highHalf.highHalf.z)()
-        res.highHalf.highHalf.w = Self.Scalar.squareRoot(res.highHalf.highHalf.w)()
-        return res
+        _fallbackSqrt(self)
     }
     /// Computes the squared length (magnitude) of the vector.
     ///

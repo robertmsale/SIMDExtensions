@@ -79,15 +79,23 @@ final class SIMDExtensionsTests: XCTestCase {
     func testRsqrt() throws {
         testEquality(V3(5, 5, 5).rsqrt, V3(repeating: 0.44721362))
     }
-    @available(iOS 15, *)
     func testExp() throws {
         let vec = V3(5,5,5)
+#if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
         let cases = [
             (vec.exp2, V3(repeating: 32)),
             (vec.exp10, V3(repeating: 100000)),
             (vec.expm1, V3(repeating: 147.41316)),
             (vec.exp, V3(repeating: 148.41316))
         ]
+#else
+        let cases = [
+            (vec.exp2, V3(repeating: 32)),
+            (vec.exp10, V3(repeating: 100000.06)),
+            (vec.expm1, V3(repeating: 147.41316)),
+            (vec.exp, V3(repeating: 148.41316))
+        ]
+#endif
         for (l, r) in cases {
             testEquality(l, r)
         }

@@ -318,6 +318,16 @@ where V.Scalar: _ScalarReal
     return result
 }
 
+@inlinable func _fallbackSqrt<V: SIMD>(_ x: V) -> V
+where V.Scalar: _ScalarReal
+{
+    var result = x
+    for lane in 0..<V.scalarCount {
+        result[lane] = V.Scalar._sqrt(x[lane])
+    }
+    return result
+}
+
 @inlinable func _fallbackTan<V: SIMD>(_ x: V) -> V
 where V.Scalar: _ScalarReal
 {

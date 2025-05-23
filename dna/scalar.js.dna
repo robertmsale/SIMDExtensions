@@ -31,6 +31,7 @@ let protofuncs = [
     { proto: "_sin", fallback: "_fallbackSin", params: 1, retval: "Self"},
     { proto: "_sinh", fallback: "_fallbackSinh", params: 1, retval: "Self"},
     { proto: "_sinpi", fallback: "_fallbackSinpi", params: 1, retval: "Self"},
+    { proto: "_sqrt", fallback: "_fallbackSqrt", params: 1, retval: "Self"},
     { proto: "_tan", fallback: "_fallbackTan", params: 1, retval: "Self"},
     { proto: "_tanh", fallback: "_fallbackTanh", params: 1, retval: "Self"},
     { proto: "_tanpi", fallback: "_fallbackTanpi", params: 1, retval: "Self"},

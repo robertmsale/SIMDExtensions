@@ -60,21 +60,13 @@ public extension SIMD3<Float> {
     /// This computed property returns a new vector where each element is the
     /// square root of the corresponding element in `self`.  
     ///
-    /// The implementation uses platform-specific square root functions:
-    /// - On Linux, it uses `SwiftGlibc.sqrtf` or `SwiftGlibc.sqrt` depending on the scalar type.
-    /// - On other platforms (e.g., macOS), it uses the optimized `_math.sqrtf` or `_math.sqrt`.
-    ///
     /// - Returns: A vector of the same type as `self` with the square root applied element-wise.
     ///
     /// - Note:  
     /// This operation assumes all components are non-negative. Passing negative values
     /// will result in NaNs according to the standard floating-point sqrt behavior.
     @inlinable var sqrt: SIMD3<Float> {
-        var res = self
-        res.x = Self.Scalar.squareRoot(res.x)()
-        res.y = Self.Scalar.squareRoot(res.y)()
-        res.z = Self.Scalar.squareRoot(res.z)()
-        return res
+        _fallbackSqrt(self)
     }
     /// Computes the squared length (magnitude) of the vector.
     ///

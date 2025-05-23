@@ -53,6 +53,7 @@ protocol _ScalarReal : SIMDScalar /* & BinaryFloatingPoint */ {
     static func _sincospi(_ x: Self) -> (sin: Self, cos: Self)
     static func _sinh(_ x: Self) -> Self
     static func _sinpi(_ x: Self) -> Self
+    static func _sqrt(_ x: Self) -> Self
     static func _tan(_ x: Self) -> Self
     static func _tanh(_ x: Self) -> Self
     static func _tanpi(_ x: Self) -> Self
@@ -93,6 +94,7 @@ extension Float  : _ScalarReal {
     @usableFromInline @inline(__always) static func _sin(_ x: Self) -> Self { Self.sin(x) }
     @usableFromInline @inline(__always) static func _sinh(_ x: Self) -> Self { Self.sinh(x) }
     @usableFromInline @inline(__always) static func _sinpi(_ x: Self) -> Self { Self.sin(Self.pi * x) }
+    @usableFromInline @inline(__always) static func _sqrt(_ x: Self) -> Self { Self.sqrt(x) }
     @usableFromInline @inline(__always) static func _tan(_ x: Self) -> Self { Self.tan(x) }
     @usableFromInline @inline(__always) static func _tanh(_ x: Self) -> Self { Self.tanh(x) }
     @usableFromInline @inline(__always) static func _tanpi(_ x: Self) -> Self { Self.tan(Self.pi * x) }
@@ -141,6 +143,7 @@ extension Double : _ScalarReal {
     @usableFromInline @inline(__always) static func _sin(_ x: Self) -> Self { Self.sin(x) }
     @usableFromInline @inline(__always) static func _sinh(_ x: Self) -> Self { Self.sinh(x) }
     @usableFromInline @inline(__always) static func _sinpi(_ x: Self) -> Self { Self.sin(Self.pi * x) }
+    @usableFromInline @inline(__always) static func _sqrt(_ x: Self) -> Self { Self.sqrt(x) }
     @usableFromInline @inline(__always) static func _tan(_ x: Self) -> Self { Self.tan(x) }
     @usableFromInline @inline(__always) static func _tanh(_ x: Self) -> Self { Self.tanh(x) }
     @usableFromInline @inline(__always) static func _tanpi(_ x: Self) -> Self { Self.tan(Self.pi * x) }
