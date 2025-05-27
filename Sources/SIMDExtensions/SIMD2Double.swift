@@ -1083,7 +1083,7 @@ public extension View {
     ///             Defaults to zero offset.
     /// - Returns: A view with the specified shadow applied.
     func shadow(color: Color = Color(.sRGBLinear, white: 0, opacity: 0.33), radius: CGFloat, offset: SIMD2<Double> = SIMD2<Double>(0.0, 0.0)) -> some View {
-        return self.shadow(color: color, radius: radius, x: offset.x, y: offset.y)
+        return self.shadow(color: color, radius: radius, x: CGFloat(offset.x), y: CGFloat(offset.y))
     }
 }
 #endif

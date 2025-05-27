@@ -1090,14 +1090,8 @@ public extension Spherical where T == Float {
 #if canImport(SwiftUI)
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 public extension View {
-    func scaleEffect(_ v: SIMD3<Float>, anchor: UnitPoint = .center) -> some View {
-        return self.scaleEffect(x: CGFloat(v.x), y: CGFloat(v.y), z: CGFloat(v.z), anchor: anchor)
-    }
     func rotation3DEffect(_ angle: Angle, axis: SIMD3<Float>, anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1) -> some View {
         return self.rotation3DEffect(angle, axis: (x: CGFloat(axis.x), y: CGFloat(axis.y), z: CGFloat(axis.z)), anchor: anchor, anchorZ: anchorZ, perspective: perspective)
-    }
-    func perspectiveRotation(_ angle: Angle, axis: SIMD3<Float>, anchor: UnitPoint = .center, anchorZ: CGFloat = 0, perspective: CGFloat = 1) -> some View {
-        return self.perspectiveRotation(angle, axis: (x: CGFloat(axis.x), y: CGFloat(axis.y), z: CGFloat(axis.z)), anchor: anchor, anchorZ: anchorZ, perspective: perspective)
     }
 }
 #endif
