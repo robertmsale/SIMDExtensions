@@ -102,13 +102,53 @@ public extension SIMD8<Double> {
    @inlinable var asSIMDFloat: SIMD8<Float> { SIMD8<Float>(Float(lowHalf.x),Float(lowHalf.y),Float(lowHalf.z),Float(lowHalf.w),Float(highHalf.x),Float(highHalf.y),Float(highHalf.z),Float(highHalf.w)) }
 }
 
+#if canImport(CoreGraphics)
+extension CGPoint: SIMDInterpretable {
+    public typealias AS = SIMD2<CGFloat.NativeType>
+}
+extension CGSize: SIMDInterpretable {
+    public typealias AS = SIMD2<CGFloat.NativeType>
+}
+extension CGVector: SIMDInterpretable {
+    public typealias AS = SIMD2<CGFloat.NativeType>
+}
+extension CGRect: SIMDInterpretable {
+    public typealias AS = SIMD4<CGFloat.NativeType>
+}
+#endif
+
 #if canImport(SceneKit)
 public extension SCNVector3 {
     init(_ x: Double, _ y: Double, _ z: Double) {
+        #if os(macOS)
+        self.init(CGFloat(x), CGFloat(y), CGFloat(z))
+        #else
         self.init(Float(x), Float(y), Float(z))
+        #endif
+    }    
+    init(_ x: Float, _ y: Float, _ z: Float) {
+        #if os(macOS)
+        self.init(CGFloat(x), CGFloat(y), CGFloat(z))
+        #else
+        self.init(x, y, z)
+        #endif
     }
     var asSIMDF: SIMD3<Float> { .init(Float(x), Float(y), Float(z)) }
     var asSIMDD: SIMD3<Double> { .init(Double(x), Double(y), Double(z)) }
+}
+extension SCNVector3: SIMDInterpretable {
+    #if os(macOS)
+    public typealias AS = SIMD3<Double>
+    #else 
+    public typealias AS = SIMD3<Float>
+    #endif
+}
+extension SCNVector4: SIMDInterpretable {
+    #if os(macOS)
+    public typealias AS = SIMD4<Double>
+    #else 
+    public typealias AS = SIMD4<Float>
+    #endif
 }
 public extension SCNQuaternion {
     init(_ x: Double, _ y: Double, _ z: Double, _ w: Double) {
@@ -118,17 +158,11 @@ public extension SCNQuaternion {
     var asSIMDD: SIMD4<Double> { .init(Double(x), Double(y), Double(z), Double(w)) }
 }
 public extension SCNGeometrySource {
-    convenience init(vertices: [SIMD3<Float>]) {
-        self.init(vertices: vertices.map {SCNVector3($0.x, $0.y, $0.z)})
+    convenience init(vertices: [SCNVector3.AS]) {
+        self.init(vertices: vertices.withUnsafeBytes { $0.load(as: [SCNVector3].self) })
     }
-    convenience init(normals: [SIMD3<Float>]) {
-        self.init(normals: normals.map {SCNVector3($0.x, $0.y, $0.z)})
-    }
-    convenience init(vertices: [SIMD3<Double>]) {
-        self.init(vertices: vertices.map {SCNVector3($0.x, $0.y, $0.z)})
-    }
-    convenience init(normals: [SIMD3<Double>]) {
-        self.init(normals: normals.map {SCNVector3($0.x, $0.y, $0.z)})
+    convenience init(normals: [SCNVector3.AS]) {
+        self.init(normals: normals.withUnsafeBytes { $0.load(as: [SCNVector3].self) })
     }
     convenience init(textureCoordinates: [SIMD2<Float>]) {
         self.init(textureCoordinates: textureCoordinates.map {CGPoint(x: CGFloat($0.x), y: CGFloat($0.y))})

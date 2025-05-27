@@ -1010,18 +1010,80 @@ public extension SIMD2<Double> {
 #if canImport(SwiftUI)
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
 public extension View {
+    /// Applies a frame to the view using a vector for width and height.
+    ///
+    /// This function wraps the standard `.frame(width:height:alignment:)` modifier,
+    /// taking a `SIMD2<Double>` vector where `x` represents width and `y` represents height,
+    /// converting them to `CGFloat` for SwiftUI.
+    ///
+    /// - Parameters:
+    ///   - v: A vector containing the width (`x`) and height (`y`) as scalars.
+    ///   - alignment: The alignment inside the frame. Defaults to `.center`.
+    /// - Returns: A view modified with the specified frame size and alignment.
     func frame(_ v: SIMD2<Double>, alignment: Alignment = .center) -> some View {
         return self.frame(width: CGFloat(v.x), height: CGFloat(v.y), alignment: alignment)
     }
+    /// Applies a frame modifier with optional minimum, ideal, and maximum sizes using vectors.
+    ///
+    /// This function wraps SwiftUI’s `.frame(minWidth:idealWidth:maxWidth:minHeight:idealHeight:maxHeight:alignment:)`
+    /// modifier, accepting optional `SIMD2<Double>` vectors for minimum, ideal, and maximum sizes.
+    /// It extracts the corresponding components and converts them to `CGFloat?`.
+    ///
+    /// - Parameters:
+    ///   - min: Optional vector specifying minimum width (`x`) and height (`y`).
+    ///   - ideal: Optional vector specifying ideal width (`x`) and height (`y`).
+    ///   - max: Optional vector specifying maximum width (`x`) and height (`y`).
+    ///   - alignment: The alignment inside the frame. Defaults to `.center`.
+    /// - Returns: A view modified with the specified frame constraints and alignment.
     func frame(min: SIMD2<Double>? = nil, ideal: SIMD2<Double>? = nil, max: SIMD2<Double>? = nil, alignment: Alignment = .center) -> some View {
         let v: [CGFloat?] = Array(arrayLiteral: min?.x, ideal?.x, max?.x, min?.y, ideal?.y, max?.y).map { $0 == nil ? nil : CGFloat($0!) }
         return self.frame(minWidth: v[0], idealWidth: v[1], maxWidth: v[2], minHeight: v[3], idealHeight: v[4], maxHeight: v[5], alignment: alignment)
     }
+    /// Sets the position of the view using a vector for x and y coordinates.
+    ///
+    /// This function wraps SwiftUI’s `.position(x:y:)` modifier, accepting a `SIMD2<Double>` vector
+    /// where `x` and `y` represent the coordinates, converting them to `CGFloat`.
+    ///
+    /// - Parameter v: A vector containing the x and y coordinates.
+    /// - Returns: A view positioned at the specified coordinates.
     func position(_ v: SIMD2<Double>) -> some View {
         return self.position(x: CGFloat(v.x), y: CGFloat(v.y))
     }
+    /// Applies an offset to the view using a vector for x and y distances.
+    ///
+    /// This function wraps SwiftUI’s `.offset(x:y:)` modifier, accepting a `SIMD2<Double>` vector
+    /// where `x` and `y` represent the horizontal and vertical offsets, converted to `CGFloat`.
+    ///
+    /// - Parameter v: A vector containing the x and y offset distances.
+    /// - Returns: A view offset by the specified distances.
     func offset(_ v: SIMD2<Double>) -> some View {
         return self.offset(x: CGFloat(v.x), y: CGFloat(v.y))
+    }
+    /// Applies a scale effect to the view using a vector for horizontal and vertical scaling factors.
+    ///
+    /// This function wraps SwiftUI’s `.scaleEffect(x:y:anchor:)` modifier, accepting a `SIMD2<Double>` vector
+    /// where `x` and `y` represent the scale factors along the horizontal and vertical axes.
+    ///
+    /// - Parameters:
+    ///   - v: A vector containing the scale factors for the x and y axes.
+    ///   - anchor: The point relative to which the scaling is applied. Defaults to `.center`.
+    /// - Returns: A view scaled by the specified factors around the given anchor point.
+    func scaleEffect(_ v: SIMD2<Double>, anchor: UnitPoint = .center) -> some View {
+        return self.scaleEffect(x: CGFloat(v.x), y: CGFloat(v.y), anchor: anchor)
+    }
+    /// Applies a shadow to the view with customizable color, radius, and offset using a vector.
+    ///
+    /// This function wraps SwiftUI’s `.shadow(color:radius:x:y:)` modifier, accepting a
+    /// `SIMD2<Double>` vector for the offset, which specifies horizontal and vertical displacement.
+    ///
+    /// - Parameters:
+    ///   - color: The color of the shadow. Defaults to a semi-transparent black.
+    ///   - radius: The blur radius of the shadow.
+    ///   - offset: A vector specifying the horizontal (`x`) and vertical (`y`) offset of the shadow.
+    ///             Defaults to zero offset.
+    /// - Returns: A view with the specified shadow applied.
+    func shadow(color: Color = Color(.sRGBLinear, white: 0, opacity: 0.33), radius: CGFloat, offset: SIMD2<Double> = SIMD2<Double>(0.0, 0.0)) -> some View {
+        return self.shadow(color: color, radius: radius, x: offset.x, y: offset.y)
     }
 }
 #endif
