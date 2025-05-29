@@ -22,7 +22,7 @@ let package = Package(
             name: "CHighway",
             path: "Sources/CHighway",
             exclude: ["highway/tests"],
-            sources: ["hwy_add.cpp"],
+            sources: ["hwy_add.cpp", "hwy_sub.cpp", "hwy_abs.cpp"],
             publicHeadersPath: "include",
             cxxSettings: [
                 .headerSearchPath("highway"),

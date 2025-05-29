@@ -86,7 +86,7 @@ extern "C" void hwy_sub_f64x3(const double *a, const double *b, double *out) {
     auto vb = hn::Load(d, b);
     hn::StoreN(hn::Sub(va, vb), d, out, 3);
     if (lanes < 3) {
-        out[2] = a[2] + b[2];
+        out[2] = a[2] - b[2];
     }
 }
 extern "C" void hwy_sub_f64x4(const double *a, const double *b, double *out) {
@@ -132,5 +132,5 @@ extern "C" void hwy_sub_f64(const double *a, const double *b, double *out, const
         auto vb = hn::LoadU(d, b + i);
         hn::StoreU(hn::Sub(va, vb), d, out + i);
     }
-    for (; i < count; ++i) out[i] = a[i] + b[i];
+    for (; i < count; ++i) out[i] = a[i] - b[i];
 }
